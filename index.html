@@ -294,40 +294,40 @@ const SUBCLASS_FEATURES = {
 };
 
 const ARMORS = [
-  { tier: 1, name: "Gambeson Armor", minor: 5, major: 11, score: 3, feature: "Flexible: +1 to Evasion" },
+  { tier: 1, name: "Gambeson Armor", minor: 5, major: 11, score: 3, feature: "Flexible: +1 to Evasion", evasionMod: 1 },
   { tier: 1, name: "Leather Armor", minor: 6, major: 13, score: 3, feature: "" },
-  { tier: 1, name: "Chainmail Armor", minor: 7, major: 15, score: 4, feature: "Heavy: -1 to Evasion" },
-  { tier: 1, name: "Full Plate Armor", minor: 8, major: 17, score: 4, feature: "Very Heavy: -2 Evasion, -1 Agility" },
-  { tier: 2, name: "Improved Gambeson Armor", minor: 7, major: 16, score: 4, feature: "Flexible: +1 to Evasion" },
+  { tier: 1, name: "Chainmail Armor", minor: 7, major: 15, score: 4, feature: "Heavy: -1 to Evasion", evasionMod: -1 },
+  { tier: 1, name: "Full Plate Armor", minor: 8, major: 17, score: 4, feature: "Very Heavy: -2 Evasion, -1 Agility", evasionMod: -2 },
+  { tier: 2, name: "Improved Gambeson Armor", minor: 7, major: 16, score: 4, feature: "Flexible: +1 to Evasion", evasionMod: 1 },
   { tier: 2, name: "Improved Leather Armor", minor: 9, major: 20, score: 4, feature: "" },
-  { tier: 2, name: "Improved Chainmail Armor", minor: 11, major: 24, score: 5, feature: "Heavy: -1 to Evasion" },
-  { tier: 2, name: "Improved Full Plate Armor", minor: 13, major: 28, score: 5, feature: "Very Heavy: -2 Evasion, -1 Agility" },
+  { tier: 2, name: "Improved Chainmail Armor", minor: 11, major: 24, score: 5, feature: "Heavy: -1 to Evasion", evasionMod: -1 },
+  { tier: 2, name: "Improved Full Plate Armor", minor: 13, major: 28, score: 5, feature: "Very Heavy: -2 Evasion, -1 Agility", evasionMod: -2 },
   { tier: 2, name: "Elundrian Chain Armor", minor: 9, major: 21, score: 4, feature: "Warded: reduce incoming magic damage by Armor Score first" },
   { tier: 2, name: "Harrowbone Armor", minor: 9, major: 21, score: 4, feature: "Resilient: d6 before last Armor Slot, on 6 reduce severity free" },
   { tier: 2, name: "Irontree Breastplate Armor", minor: 9, major: 20, score: 4, feature: "Reinforced: +2 thresholds after marking last Armor Slot" },
   { tier: 2, name: "Runetan Floating Armor", minor: 9, major: 20, score: 4, feature: "Shifting: mark Armor Slot to give attacker disadvantage" },
   { tier: 2, name: "Tyris Soft Armor", minor: 8, major: 18, score: 5, feature: "Quiet: +2 to move silently" },
   { tier: 2, name: "Rosewild Armor", minor: 11, major: 23, score: 5, feature: "Hopeful: mark Armor Slot instead of spending Hope" },
-  { tier: 3, name: "Advanced Gambeson Armor", minor: 9, major: 23, score: 5, feature: "Flexible: +1 to Evasion" },
+  { tier: 3, name: "Advanced Gambeson Armor", minor: 9, major: 23, score: 5, feature: "Flexible: +1 to Evasion", evasionMod: 1 },
   { tier: 3, name: "Advanced Leather Armor", minor: 11, major: 27, score: 5, feature: "" },
-  { tier: 3, name: "Advanced Chainmail Armor", minor: 13, major: 31, score: 6, feature: "Heavy: -1 to Evasion" },
-  { tier: 3, name: "Advanced Full Plate Armor", minor: 15, major: 35, score: 6, feature: "Very Heavy: -2 Evasion, -1 Agility" },
+  { tier: 3, name: "Advanced Chainmail Armor", minor: 13, major: 31, score: 6, feature: "Heavy: -1 to Evasion", evasionMod: -1 },
+  { tier: 3, name: "Advanced Full Plate Armor", minor: 15, major: 35, score: 6, feature: "Very Heavy: -2 Evasion, -1 Agility", evasionMod: -2 },
   { tier: 3, name: "Bellamie Fine Armor", minor: 11, major: 27, score: 5, feature: "Gilded: +1 to Presence" },
   { tier: 3, name: "Dragonscale Armor", minor: 11, major: 27, score: 5, feature: "Impenetrable: 1/short rest mark Stress instead of last HP" },
   { tier: 3, name: "Spiked Plate Armor", minor: 10, major: 25, score: 5, feature: "Sharp: successful Melee attack adds d4 damage" },
   { tier: 3, name: "Bladefare Armor", minor: 16, major: 39, score: 6, feature: "Physical: can't mark Armor Slot vs magic damage" },
   { tier: 3, name: "Monett's Cloak", minor: 16, major: 39, score: 6, feature: "Magic: can't mark Armor Slot vs physical damage" },
   { tier: 3, name: "Runes of Fortification", minor: 17, major: 43, score: 6, feature: "Painful: marking Armor Slot also marks a Stress" },
-  { tier: 4, name: "Legendary Gambeson Armor", minor: 11, major: 32, score: 6, feature: "Flexible: +1 to Evasion" },
+  { tier: 4, name: "Legendary Gambeson Armor", minor: 11, major: 32, score: 6, feature: "Flexible: +1 to Evasion", evasionMod: 1 },
   { tier: 4, name: "Legendary Leather Armor", minor: 13, major: 36, score: 6, feature: "" },
-  { tier: 4, name: "Legendary Chainmail Armor", minor: 15, major: 40, score: 7, feature: "Heavy: -1 to Evasion" },
-  { tier: 4, name: "Legendary Full Plate Armor", minor: 17, major: 44, score: 7, feature: "Very Heavy: -2 Evasion, -1 Agility" },
+  { tier: 4, name: "Legendary Chainmail Armor", minor: 15, major: 40, score: 7, feature: "Heavy: -1 to Evasion", evasionMod: -1 },
+  { tier: 4, name: "Legendary Full Plate Armor", minor: 17, major: 44, score: 7, feature: "Very Heavy: -2 Evasion, -1 Agility", evasionMod: -2 },
   { tier: 4, name: "Dunamis Silkchain", minor: 13, major: 36, score: 7, feature: "Timeslowing: mark Armor Slot, roll d4 bonus to Evasion" },
   { tier: 4, name: "Channeling Armor", minor: 13, major: 36, score: 5, feature: "Channeling: +1 to Spellcast Rolls" },
   { tier: 4, name: "Emberwoven Armor", minor: 13, major: 36, score: 6, feature: "Burning: Melee attacker marks a Stress" },
   { tier: 4, name: "Full Fortified Armor", minor: 15, major: 40, score: 4, feature: "Fortified: Armor Slot reduces severity by two thresholds" },
   { tier: 4, name: "Veritas Opal Armor", minor: 13, major: 36, score: 6, feature: "Truthseeking: glows near a lie" },
-  { tier: 4, name: "Savior Chainmail", minor: 18, major: 48, score: 8, feature: "Difficult: -1 all traits and Evasion" },
+  { tier: 4, name: "Savior Chainmail", minor: 18, major: 48, score: 8, feature: "Difficult: -1 all traits and Evasion", evasionMod: -1 },
 ];
 
 const DOMAIN_CARDS = [
@@ -568,6 +568,44 @@ function tierBonuses(subclassName, tier) {
   return sums;
 }
 
+/** True if this character's ancestry (or their Mixed Ancestry pick) includes a specific ancestry's feature
+ * slot — 0 for the first listed feature, 1 for the second. A pure ancestry always has both; Mixed Ancestry
+ * only has whichever single feature was actually chosen from that side. */
+function hasAncestryFeature(char, ancestryName, featureIndex) {
+  if (char.ancestry === ancestryName) return true;
+  if (char.ancestry === "Mixed Ancestry") {
+    if (char.mixedTop === ancestryName && char.mixedTopFeature === featureIndex) return true;
+    if (char.mixedBottom === ancestryName && char.mixedBottomFeature === featureIndex) return true;
+  }
+  return false;
+}
+
+/** Flat, unconditional ancestry bonuses simple enough to auto-apply, same reasoning as armor and subclass
+ * bonuses. Most ancestry features are conditional/reactive (mark a Stress to..., once per rest...) and stay
+ * as reference text only, since auto-applying those would need real combat-state tracking we don't do. */
+function ancestryBonuses(char) {
+  return {
+    hp: hasAncestryFeature(char, "Giant", 0) ? 1 : 0, // Endurance: +1 HP slot at creation
+    stress: hasAncestryFeature(char, "Human", 0) ? 1 : 0, // High Stamina: +1 Stress slot at creation
+    evasion: hasAncestryFeature(char, "Simiah", 1) ? 1 : 0, // Nimble: permanent +1 Evasion
+    galapaShell: hasAncestryFeature(char, "Galapa", 0), // Shell: thresholds += current Proficiency (scales with level, so applied live rather than baked in at creation)
+  };
+}
+
+/** The "X-Touched" bonus every domain has at level 7, unlocked once you have 4+ cards from that domain in
+ * your loadout. Most grant advantage/roll bonuses we don't track as a number, or apply to a "Severe
+ * threshold" concept this app simplifies away — these two are the ones that map cleanly onto stats we
+ * already track, so recomputed live from however many matching cards are currently in the loadout. */
+function domainTouchedBonuses(char) {
+  const cards = char.domainCards || [];
+  const countIn = (domain) => cards.filter((c) => c.domain === domain).length;
+  const traitBonus = {};
+  if (countIn("Bone") >= 4) traitBonus.Agility = (traitBonus.Agility || 0) + 1; // Bone-Touched
+  const spellcastTrait = SUBCLASS_FEATURES[char.subclass]?.spellcast;
+  if (spellcastTrait && countIn("Arcana") >= 4) traitBonus[spellcastTrait] = (traitBonus[spellcastTrait] || 0) + 1; // Arcana-Touched
+  return { traitBonus, armorSlotBonus: countIn("Valor") >= 4 ? 1 : 0 }; // Valor-Touched
+}
+
 /** Returns the character state restored to just before its most recent level-up, or null if there's no history. */
 function rollbackSnapshot(character) {
   const history = character.levelHistory || [];
@@ -578,7 +616,7 @@ function rollbackSnapshot(character) {
 
 function blankCharacter() {
   return {
-    id: uid(), createdAt: Date.now(), ownerId: "", table: "", tableId: "", dmName: "", joinCode: genJoinCode(),
+    id: uid(), createdAt: Date.now(), ownerId: "", table: "", tableId: "", dmName: "", joinCode: genJoinCode(), portraitUrl: "",
     playerName: "", name: "", pronouns: "",
     className: "", subclass: "", ancestry: "", mixedTop: "", mixedBottom: "",
     community: "", traits: {}, evasion: null, level: 1, proficiency: 1,
@@ -948,6 +986,13 @@ function DaggerheartTracker() {
     catch { setError("Save failed — your last change may not have synced."); }
   };
 
+  /** Portraits are just a pasted link to an image hosted elsewhere (Discord, Imgur, etc.) — no file upload,
+   * no Firebase Storage, since that now requires a paid Blaze plan even for trivial free-tier usage. Setting
+   * one is just a normal field save. */
+  const setPortraitUrl = async (character, url) => {
+    await saveCharacter({ ...character, portraitUrl: url.trim() });
+  };
+
   const deleteCharacter = async (id) => {
     try { await fb.deleteDoc(fb.doc(fb.db, "characters", id)); } catch { /* ignore */ }
     if (activeId === id) { setActiveId(null); setView("roster"); }
@@ -1133,6 +1178,7 @@ function DaggerheartTracker() {
           tableRegistry={tableRegistry}
           onChange={saveCharacter}
           onDelete={() => deleteCharacter(activeId)}
+          onSetPortraitUrl={setPortraitUrl}
         />
       )}
     </div>
@@ -1308,19 +1354,22 @@ function Roster({ characters, role, viewerId, tables, tableRegistry, tableFilter
           const canRollback = historyCount > 0;
           return (
             <Card key={c.id} className="p-4 relative">
-              <button onClick={() => onOpen(c.id)} className="text-left w-full">
-                <div className="flex items-center gap-2 mb-1">
-                  {cls && cls.domains.map((d) => (
-                    <span key={d} style={{ backgroundColor: DOMAIN_COLORS[d] }} className="w-2.5 h-2.5 rounded-full" />
-                  ))}
-                  <span className="sansUI text-tiny uppercase tracking-wide text-muted">Level {c.level}</span>
-                  {isDm && c.ownerId === viewerId && <span className="sansUI text-tiny uppercase tracking-wide text-gold">· Yours (as Player)</span>}
-                  {c.table && <span className="sansUI text-tiny uppercase tracking-wide text-faint ml-auto">{c.table}</span>}
-                  {isDm && !c.table && <span className="sansUI text-tiny uppercase tracking-wide text-faint ml-auto">Unsorted</span>}
+              <button onClick={() => onOpen(c.id)} className="text-left w-full flex gap-3">
+                {c.portraitUrl && <img src={c.portraitUrl} alt="" className="w-12 h-12 rounded-md object-cover border border-line shrink-0" />}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1">
+                    {cls && cls.domains.map((d) => (
+                      <span key={d} style={{ backgroundColor: DOMAIN_COLORS[d] }} className="w-2.5 h-2.5 rounded-full" />
+                    ))}
+                    <span className="sansUI text-tiny uppercase tracking-wide text-muted">Level {c.level}</span>
+                    {isDm && c.ownerId === viewerId && <span className="sansUI text-tiny uppercase tracking-wide text-gold">· Yours (as Player)</span>}
+                    {c.table && <span className="sansUI text-tiny uppercase tracking-wide text-faint ml-auto">{c.table}</span>}
+                    {isDm && !c.table && <span className="sansUI text-tiny uppercase tracking-wide text-faint ml-auto">Unsorted</span>}
+                  </div>
+                  <div className="text-lg leading-tight">{c.name || "Unnamed hero"}</div>
+                  <div className="sansUI text-xs text-muted">{c.className}{c.subclass ? ` · ${c.subclass}` : ""}</div>
+                  <div className="sansUI text-xs text-muted">{c.ancestry === "Mixed Ancestry" ? `${c.mixedTop}/${c.mixedBottom} Mixed` : c.ancestry} · {c.community}</div>
                 </div>
-                <div className="text-lg leading-tight">{c.name || "Unnamed hero"}</div>
-                <div className="sansUI text-xs text-muted">{c.className}{c.subclass ? ` · ${c.subclass}` : ""}</div>
-                <div className="sansUI text-xs text-muted">{c.ancestry === "Mixed Ancestry" ? `${c.mixedTop}/${c.mixedBottom} Mixed` : c.ancestry} · {c.community}</div>
               </button>
               <div className="flex items-center justify-between mt-3 pt-2 border-t border-line sansUI text-xs">
                 {canRollback ? (
@@ -1378,11 +1427,12 @@ function Wizard({ wizard, setWizard, existingTables, tableRegistry, onFinish, on
     const cls = classData(data.className);
     const arm = armorData(data.armor?.name || cls.armor);
     const foundation = tierBonuses(data.subclass, "foundation");
+    const ancestry = ancestryBonuses(data);
     onFinish({
       ...data,
-      evasion: cls.evasion + (foundation.evasion || 0),
-      hp: { max: cls.hp + (foundation.hp || 0), marked: 0 },
-      stress: { max: (data.stress?.max || 6) + (foundation.stress || 0), marked: 0 },
+      evasion: cls.evasion + (foundation.evasion || 0) + ancestry.evasion,
+      hp: { max: cls.hp + (foundation.hp || 0) + ancestry.hp, marked: 0 },
+      stress: { max: (data.stress?.max || 6) + (foundation.stress || 0) + ancestry.stress, marked: 0 },
       armor: { name: arm.name, slots: { max: arm.score, marked: 0 } },
       thresholdBonus: foundation.thresholdBonus || 0,
       subclassTier: 1,
@@ -1767,9 +1817,12 @@ function StepBackground({ data, set }) {
 
 function StepReview({ data }) {
   const cls = classData(data.className);
+  const arm = cls ? armorData(cls.armor) : null;
   const foundation = tierBonuses(data.subclass, "foundation");
-  const finalEvasion = (cls?.evasion || 0) + (foundation.evasion || 0);
-  const finalHp = (cls?.hp || 0) + (foundation.hp || 0);
+  const ancestry = ancestryBonuses(data);
+  const baseEvasion = (cls?.evasion || 0) + (foundation.evasion || 0) + ancestry.evasion;
+  const finalEvasion = baseEvasion + (arm?.evasionMod || 0);
+  const finalHp = (cls?.hp || 0) + (foundation.hp || 0) + ancestry.hp;
   return (
     <div className="sansUI text-sm space-y-1">
       <p className="text-lg" style={{ fontFamily: "Georgia, serif" }}>{data.name}{data.pronouns ? ` (${data.pronouns})` : ""}</p>
@@ -1788,12 +1841,15 @@ function StepReview({ data }) {
 /*  CHARACTER SHEET                                                    */
 /* ------------------------------------------------------------------ */
 
-function Sheet({ character, tableRegistry = [], onChange, onDelete }) {
+function Sheet({ character, tableRegistry = [], onChange, onDelete, onUploadPortrait, onRemovePortrait }) {
   const [local, setLocal] = useState(character);
   const [rollResult, setRollResult] = useState(null);
   const [rollTrait, setRollTrait] = useState("Agility");
   const [showLevelUp, setShowLevelUp] = useState(false);
   const [showCardPicker, setShowCardPicker] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState("");
+  const fileInputRef = useRef(null);
 
   useEffect(() => { setLocal(character); }, [character?.id]);
   useEffect(() => {
@@ -1806,13 +1862,19 @@ function Sheet({ character, tableRegistry = [], onChange, onDelete }) {
   const cls = classData(local.className);
   const arm = armorData(local.armor?.name);
   const subFeat = SUBCLASS_FEATURES[local.subclass];
-  const minorThreshold = arm.minor + local.level + (local.thresholdBonus || 0);
-  const majorThreshold = arm.major + local.level + (local.thresholdBonus || 0);
+  const ancBonus = ancestryBonuses(local);
+  const touched = domainTouchedBonuses(local);
+  const galapaBonus = ancBonus.galapaShell ? local.proficiency : 0;
+  const minorThreshold = arm.minor + local.level + (local.thresholdBonus || 0) + galapaBonus;
+  const majorThreshold = arm.major + local.level + (local.thresholdBonus || 0) + galapaBonus;
+  const totalEvasion = local.evasion + (arm.evasionMod || 0);
+  const traitTotal = (t) => (local.traits[t] ?? 0) + (touched.traitBonus[t] || 0);
+  const armorSlotsMax = local.armor.slots.max + (touched.armorSlotBonus || 0);
 
   const roll = () => {
     const hopeDie = 1 + Math.floor(Math.random() * 12);
     const fearDie = 1 + Math.floor(Math.random() * 12);
-    const mod = local.traits[rollTrait] ?? 0;
+    const mod = traitTotal(rollTrait);
     const total = hopeDie + fearDie + mod;
     let outcome = hopeDie === fearDie ? "Critical Success!" : hopeDie > fearDie ? "Rolled with Hope" : "Rolled with Fear";
     setRollResult({ hopeDie, fearDie, mod, total, outcome });
@@ -1832,12 +1894,52 @@ function Sheet({ character, tableRegistry = [], onChange, onDelete }) {
 
   const setTrait = (t, v) => patch({ traits: { ...local.traits, [t]: v } });
 
+  const handlePortraitFile = async (e) => {
+    const file = e.target.files?.[0];
+    e.target.value = ""; // allow picking the same file again later
+    if (!file) return;
+    if (!file.type.startsWith("image/")) { setUploadError("That's not an image file."); return; }
+    setUploading(true);
+    setUploadError("");
+    const err = await onUploadPortrait(local, file);
+    setUploading(false);
+    if (err) setUploadError(err);
+  };
+
+  const handleRemovePortrait = async () => {
+    setUploading(true);
+    await onRemovePortrait(local);
+    setUploading(false);
+  };
+
   return (
     <div className="max-w-4xl mx-auto space-y-4 sansUI">
       {/* Header */}
       <Card className="p-5">
         <div className="flex flex-wrap justify-between items-start gap-3">
-          <div>
+          <div className="flex items-start gap-4">
+            <div className="shrink-0">
+              {local.portraitUrl ? (
+                <img src={local.portraitUrl} alt="" className="w-20 h-20 rounded-md object-cover border border-line" />
+              ) : (
+                <div className="w-20 h-20 rounded-md border border-dashed border-line flex items-center justify-center text-tiny text-faint text-center px-1">No portrait</div>
+              )}
+              <input ref={fileInputRef} type="file" accept="image/*" onChange={handlePortraitFile} className="hidden" />
+              <div className="flex flex-col gap-1 mt-1 sansUI">
+                <button onClick={() => fileInputRef.current?.click()} disabled={uploading} className={`text-tiny hover-cream ${uploading ? "text-faint" : "text-gold"}`}>
+                  {uploading ? "Working…" : local.portraitUrl ? "Change" : "Upload photo"}
+                </button>
+                {local.portraitUrl && !uploading && (
+                  <ConfirmAction
+                    label="Remove" confirmLabel="Sure?" icon={null}
+                    onConfirm={handleRemovePortrait}
+                    className="text-tiny text-faint hover-danger" armedClassName="text-tiny text-danger"
+                  />
+                )}
+              </div>
+              {uploadError && <p className="text-tiny2 text-danger mt-1" style={{ maxWidth: 80 }}>{uploadError}</p>}
+            </div>
+            <div>
             <input className="bg-transparent text-2xl border-b border-transparent border-line outline-none" style={{ fontFamily: "Georgia, serif" }}
               value={local.name} onChange={(e) => patch({ name: e.target.value })} />
             <div className="flex items-center gap-2 mt-1 text-xs text-muted">
@@ -1873,6 +1975,7 @@ function Sheet({ character, tableRegistry = [], onChange, onDelete }) {
                 <JoinCodeField code={local.joinCode} />
               </div>
             )}
+            </div>
           </div>
           <div className="flex items-center gap-3">
             <div className="text-center">
@@ -1909,12 +2012,13 @@ function Sheet({ character, tableRegistry = [], onChange, onDelete }) {
               <div className="text-tiny text-muted uppercase">{t}</div>
               <input type="number" className="w-full bg-transparent text-center text-lg outline-none" value={local.traits[t] ?? 0}
                 onChange={(e) => setTrait(t, Number(e.target.value))} onClick={(e) => e.stopPropagation()} />
+              {touched.traitBonus[t] > 0 && <div className="text-tiny text-gold">+{touched.traitBonus[t]} Touched</div>}
             </button>
           ))}
         </div>
         <div className="flex items-center gap-3">
           <button onClick={roll} className="px-3 py-2 rounded bg-teal text-ink flex items-center gap-1 text-sm">
-            <Dices size={14} /> Roll Duality Dice ({rollTrait})
+            <Dices size={14} /> Roll Duality Dice ({rollTrait}{touched.traitBonus[rollTrait] ? ` ${fmtMod(traitTotal(rollTrait))} total` : ""})
           </button>
           {rollResult && (
             <div className="text-sm">
@@ -1977,17 +2081,18 @@ function Sheet({ character, tableRegistry = [], onChange, onDelete }) {
           <PipRow max={local.hope.max} marked={local.hope.marked} color="#C9A227" onChange={(n) => patch({ hope: { ...local.hope, marked: n } })} />
         </Card>
         <Card className="p-5">
-          <SectionTitle>Armor slots ({local.armor.slots.max - local.armor.slots.marked} / {local.armor.slots.max})</SectionTitle>
-          <PipRow max={local.armor.slots.max} marked={local.armor.slots.marked} color="#5C8A4A" onChange={(n) => patch({ armor: { ...local.armor, slots: { ...local.armor.slots, marked: n } } })} />
+          <SectionTitle>Armor slots ({armorSlotsMax - local.armor.slots.marked} / {armorSlotsMax}){touched.armorSlotBonus > 0 && <span className="text-gold"> +{touched.armorSlotBonus} Touched</span>}</SectionTitle>
+          <PipRow max={armorSlotsMax} marked={local.armor.slots.marked} color="#5C8A4A" onChange={(n) => patch({ armor: { ...local.armor, slots: { ...local.armor.slots, marked: n } } })} />
         </Card>
       </div>
 
       {/* Combat stats */}
       <Card className="p-5">
         <SectionTitle>Combat</SectionTitle>
-        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 text-sm">
-          <div><div className="text-tiny text-muted uppercase">Evasion</div>
+        <div className="grid grid-cols-2 sm:grid-cols-6 gap-3 text-sm">
+          <div><div className="text-tiny text-muted uppercase">Base Evasion</div>
             <input type="number" className="bg-transparent text-lg outline-none w-full" value={local.evasion} onChange={(e) => patch({ evasion: Number(e.target.value) })} /></div>
+          <div><div className="text-tiny text-muted uppercase">Evasion (total)</div><div className="text-lg text-gold">{totalEvasion}</div></div>
           <div><div className="text-tiny text-muted uppercase">Proficiency</div>
             <input type="number" className="bg-transparent text-lg outline-none w-full" value={local.proficiency} onChange={(e) => patch({ proficiency: Number(e.target.value) })} /></div>
           <div><div className="text-tiny text-muted uppercase">Threshold bonus</div>
@@ -1995,7 +2100,12 @@ function Sheet({ character, tableRegistry = [], onChange, onDelete }) {
           <div><div className="text-tiny text-muted uppercase">Minor threshold</div><div className="text-lg">{minorThreshold}</div></div>
           <div><div className="text-tiny text-muted uppercase">Major threshold</div><div className="text-lg">{majorThreshold}</div></div>
         </div>
-        <p className="text-tiny2 text-faint mt-2">Below minor: mark 1 HP · minor–major: mark 2 HP · at/above major: mark 3 HP. Threshold bonus covers subclass/domain-card sources like Stalwart's Unwavering.</p>
+        <p className="text-tiny2 text-faint mt-2">
+          Below minor: mark 1 HP · minor–major: mark 2 HP · at/above major: mark 3 HP.
+          Base Evasion already includes Simiah's +1 (auto-applied at creation) — edit it directly for anything else not yet auto-tracked.
+          Total Evasion folds in your current armor's modifier ({arm.name}{arm.evasionMod ? `: ${fmtMod(arm.evasionMod)}` : ": none"}).
+          Threshold bonus covers manual sources like domain-card perks; Stalwart's tiers and Galapa's Shell (+{ancBonus.galapaShell ? local.proficiency : 0} from Proficiency) are already folded into the totals above automatically.
+        </p>
         <div className="mt-3">
           <label className="text-xs text-muted">Armor</label>
           <select className="w-full mt-1 bg-ink border border-line rounded px-3 py-2" value={local.armor.name}
