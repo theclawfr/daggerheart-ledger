@@ -1105,6 +1105,7 @@ function DaggerheartTracker() {
         <Roster
           characters={visibleCharacters}
           role={role}
+          viewerId={viewerId}
           tables={dmTableNames}
           tableRegistry={myTables}
           tableFilter={tableFilter}
@@ -1116,7 +1117,6 @@ function DaggerheartTracker() {
           onAddByCode={addCharacterToTable}
           onCreateTable={createTable}
           onDeleteTable={deleteTable}
-         
         />
       )}
 
@@ -1275,7 +1275,7 @@ function ManageTables({ tableRegistry, characters, onCreateTable, onDeleteTable 
   );
 }
 
-function Roster({ characters, role, tables, tableRegistry, tableFilter, setTableFilter, onOpen, onCreate, onDelete, onRollback, onAddByCode, onCreateTable, onDeleteTable }) {
+function Roster({ characters, role, viewerId, tables, tableRegistry, tableFilter, setTableFilter, onOpen, onCreate, onDelete, onRollback, onAddByCode, onCreateTable, onDeleteTable }) {
   const isDm = role === "dm";
   const hasUnsorted = isDm && characters.some((c) => !c.table);
   const tabs = isDm ? ["All", ...tables, ...(hasUnsorted ? ["Unsorted"] : [])] : [];
@@ -1318,6 +1318,7 @@ function Roster({ characters, role, tables, tableRegistry, tableFilter, setTable
                     <span key={d} style={{ backgroundColor: DOMAIN_COLORS[d] }} className="w-2.5 h-2.5 rounded-full" />
                   ))}
                   <span className="sansUI text-tiny uppercase tracking-wide text-muted">Level {c.level}</span>
+                  {isDm && c.ownerId === viewerId && <span className="sansUI text-tiny uppercase tracking-wide text-gold">· Yours (as Player)</span>}
                   {c.table && <span className="sansUI text-tiny uppercase tracking-wide text-faint ml-auto">{c.table}</span>}
                   {isDm && !c.table && <span className="sansUI text-tiny uppercase tracking-wide text-faint ml-auto">Unsorted</span>}
                 </div>
@@ -1851,6 +1852,13 @@ function Sheet({ character, tableRegistry = [], onChange, onDelete }) {
               <input className="bg-transparent text-tiny text-faint border-b border-transparent border-line outline-none" value={local.table || ""}
                 onChange={(e) => patch({ table: e.target.value })} placeholder="unsorted" />
               {local.dmName && <span className="text-tiny text-faint">· DM: {local.dmName}</span>}
+              {(local.table || local.tableId) && (
+                <ConfirmAction
+                  label="Leave table" confirmLabel="Sure?" icon={null}
+                  onConfirm={() => patch({ table: "", tableId: "", dmName: "" })}
+                  className="text-tiny text-faint hover-danger" armedClassName="text-tiny text-danger"
+                />
+              )}
             </div>
             {tableRegistry.length > 0 && !local.table && (
               <div className="mt-1 max-w-xs">
