@@ -983,23 +983,19 @@ function DaggerheartTracker() {
   const redeemTableCode = (code) =>
     tableRegistry.find((t) => t.code.toUpperCase() === code.trim().toUpperCase()) || null;
 
-  // Full name list across every table anyone's registered — used for the player-facing "table" autocomplete,
-  // deliberately NOT scoped to one DM, since a player might type/redeem any DM's table name.
-  const allTableNames = [...new Set([...tableRegistry.map((t) => t.name), ...characters.map((c) => c.table).filter(Boolean)])].sort();
+  // For the player-facing "casual label" autocomplete — deliberately only suggests names that are just plain
+  // labels, never an actual registered table's name. That keeps the two concepts fully separate: typing a
+  // label never accidentally links you to a real DM table, only redeeming an actual code does that.
+  const registeredTableNames = new Set(tableRegistry.map((t) => t.name));
+  const freeLabelNames = [...new Set(characters.map((c) => c.table).filter((t) => t && !registeredTableNames.has(t)))].sort();
 
-  // A DM only ever sees the table(s) they personally created, plus anything not yet claimed at all. Matching is by
-  // each table's unique ID, not its display name — so two different DMs can freely name a table the same thing
-  // without a character from one ever leaking into the other's view.
+  // A DM only ever sees the table(s) they personally created, plus anything not yet formally linked at all.
+  // Matching is strictly by each table's unique ID — never by name — so a character's plain-text label can
+  // never be mistaken for an actual link, coincidental name match or not.
   const myTables = tableRegistry.filter((t) => t.dmViewerId === viewerId);
   const myTableIds = new Set(myTables.map((t) => t.id));
   const myTableNames = myTables.map((t) => t.name);
-  const dmCharacters = characters.filter((c) => {
-    if (!c.table) return true; // unsorted — visible to any DM, up for grabs
-    if (c.tableId) return myTableIds.has(c.tableId); // properly linked — match by unique ID, no ambiguity
-    const matchingTables = tableRegistry.filter((t) => t.name === c.table);
-    if (matchingTables.length === 0) return true; // free-text name that isn't any registered table — visible to any DM
-    return matchingTables.some((t) => t.dmViewerId === viewerId); // very old data, name-only — best-effort fallback
-  });
+  const dmCharacters = characters.filter((c) => (c.tableId ? myTableIds.has(c.tableId) : true));
   const legacyVisibleTableNames = [...new Set(dmCharacters.map((c) => c.table).filter((t) => t && !myTableNames.includes(t)))];
   const dmTableNames = [...new Set([...myTableNames, ...legacyVisibleTableNames])].sort();
 
@@ -1124,7 +1120,7 @@ function DaggerheartTracker() {
         <Wizard
           wizard={wizard}
           setWizard={setWizard}
-          existingTables={allTableNames}
+          existingTables={freeLabelNames}
           tableRegistry={tableRegistry}
           onFinish={async (char) => { await saveCharacter(char); setActiveId(char.id); setView("sheet"); }}
           onCancel={() => setView("roster")}
@@ -1452,20 +1448,23 @@ function StepIdentity({ data, set, existingTables = [], tableRegistry = [] }) {
       </div>
       {tableRegistry.length > 0 && (
         <div>
-          <label className="text-xs text-muted">Got a table code from your DM?</label>
+          <label className="text-xs text-muted">Got a table code from your DM? (this is the real link)</label>
           <div className="mt-1">
             <RedeemTableCode tableRegistry={tableRegistry} onRedeem={(t) => set({ table: t.name, tableId: t.id, dmName: t.dmName })} compact />
           </div>
         </div>
       )}
       <div>
-        <label className="text-xs text-muted">Table / campaign {tableRegistry.length > 0 ? "(or type it manually)" : "(optional)"}</label>
+        <label className="text-xs text-muted">Or just a casual label, if you don't have a code yet</label>
         <input className="w-full mt-1 bg-ink border border-line rounded px-3 py-2" value={data.table || ""} list="existing-tables"
-          onChange={(e) => set({ table: e.target.value })} placeholder="e.g. Tuesday Group" />
+          onChange={(e) => set({ table: e.target.value })} placeholder="e.g. Cool Games on Thursdays" />
         <datalist id="existing-tables">
           {existingTables.map((t) => <option key={t} value={t} />)}
         </datalist>
-        <p className="text-tiny2 text-faint mt-1">Helps the DM sort characters if they're running more than one table.{data.dmName ? ` DM: ${data.dmName}.` : ""}</p>
+        <p className="text-tiny2 text-faint mt-1">
+          Just a plain note to help you and your DM keep track — it doesn't link to anything, even if it matches a real table's name.
+          {data.dmName ? ` DM: ${data.dmName}.` : " Only the code above actually connects you to a DM's table."}
+        </p>
       </div>
     </div>
   );
@@ -1860,6 +1859,9 @@ function Sheet({ character, tableRegistry = [], onChange, onDelete }) {
                 />
               )}
             </div>
+            {!local.tableId && local.table && (
+              <p className="text-tiny2 text-faint">Just a plain label, not a real link — redeem a table code below to actually connect to a DM's table.</p>
+            )}
             {tableRegistry.length > 0 && !local.table && (
               <div className="mt-1 max-w-xs">
                 <RedeemTableCode tableRegistry={tableRegistry} onRedeem={(t) => patch({ table: t.name, tableId: t.id, dmName: t.dmName })} compact />
