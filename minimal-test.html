@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Minimal Test</title>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body style="background:#171522; color:white; font-family:sans-serif; padding:2rem;">
+
+<div id="root">Nothing here yet — if this text is still visible, React never mounted.</div>
+
+<script type="text/babel" data-presets="react">
+  function TestApp() {
+    return <h1 style={{color: "lime"}}>It works! React + Babel are running fine.</h1>;
+  }
+  const root = ReactDOM.createRoot(document.getElementById("root"));
+  root.render(<TestApp />);
+</script>
+
+</body>
+</html>
