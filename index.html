@@ -5,10 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Daggerheart Ledger</title>
 
-<!-- Tailwind's browser CDN build. The app's colors/sizes come from its own <style> block further down,
-     but a lot of layout classes (flex, grid, gap-2, rounded, sm:grid-cols-2, etc.) still rely on Tailwind
-     itself to generate the matching CSS, so this stays even without any custom config. -->
-<script src="https://cdn.tailwindcss.com"></script>
+<!-- A static, precompiled Tailwind stylesheet — not the "Play CDN" script (cdn.tailwindcss.com), which runs
+     as live JavaScript on every page load and was conflicting with Babel below. This is just plain CSS, no
+     script execution at all, so it can't interfere with anything. Covers the standard utility classes used
+     throughout (flex, grid, gap-2, rounded, sm:grid-cols-2, etc.) — the app's own colors/sizes come from the
+     custom <style> block further down. -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/3.4.1/tailwind.min.css" />
 
 <!-- React, loaded straight from a CDN so this can be a single file with no build step. -->
 <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
