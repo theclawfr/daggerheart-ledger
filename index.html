@@ -17,12 +17,30 @@
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-<!-- Firebase "compat" SDK: an older-style API that exposes a plain global `firebase` object, which is much
-     simpler to use from a script tag than the newer module-based SDK. The auth script enables the silent
-     anonymous sign-in that gates access to the database (see the security rules in the setup guide). -->
-<script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore-compat.js"></script>
+<!-- Firebase's modern modular SDK, loaded as real ES modules — this is the current officially-supported way
+     to load Firebase from a plain script tag at this SDK version. Everything it creates gets attached to
+     window.fb so the plain (non-module) app script further down can use it. -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+  import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+  import { getFirestore, collection, doc, setDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCPZoHEdz1XDjsZ7RRNLu0hZzuWHo63A8g",
+    authDomain: "daggerheart-ledger.firebaseapp.com",
+    projectId: "daggerheart-ledger",
+    storageBucket: "daggerheart-ledger.firebasestorage.app",
+    messagingSenderId: "162728533369",
+    appId: "1:162728533369:web:636dc56e14e57cc04323a8",
+  };
+
+  const app = initializeApp(firebaseConfig);
+  window.fb = {
+    auth: getAuth(app),
+    db: getFirestore(app),
+    signInAnonymously, onAuthStateChanged, collection, doc, setDoc, deleteDoc, onSnapshot,
+  };
+</script>
 
 <style>
   html, body { margin: 0; padding: 0; background: #171522; }
@@ -32,25 +50,14 @@
 
 <div id="root"></div>
 
-<!-- This project's real Firebase config is already filled in below — nothing to edit in this file. -->
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyCPZoHEdz1XDjsZ7RRNLu0hZzuWHo63A8g",
-    authDomain: "daggerheart-ledger.firebaseapp.com",
-    projectId: "daggerheart-ledger",
-    storageBucket: "daggerheart-ledger.firebasestorage.app",
-    messagingSenderId: "162728533369",
-    appId: "1:162728533369:web:636dc56e14e57cc04323a8",
-  };
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-</script>
-
 <!-- The whole app. -->
 <script type="text/babel" data-presets="react">
-// No build step here, so React and Firebase come from the CDN <script> tags loaded in index.html
-// (global `React`, `ReactDOM`, and `firebase` objects) instead of ES module imports.
+// No build step here, so React comes from the CDN <script> tags loaded in index.html (global `React` and
+// `ReactDOM`), and Firebase comes from window.fb, set up by a small <script type="module"> block in
+// index.html that does the real ES module imports (this script itself isn't a module, so it can't import
+// directly — it just reads what that other script already attached to window).
 const { useState, useEffect, useRef } = React;
+const fb = window.fb;
 
 // Tiny inline icon set, replacing lucide-react (which needs a bundler) with plain SVGs in the same style.
 const Icon = ({ size = 16, children }) => (
@@ -875,12 +882,12 @@ function DaggerheartTracker() {
     let unsubTables = () => {};
     const maybeReady = () => { if (gotChars && gotTables) setView((v) => (v === "loading" ? "roster" : v)); };
 
-    const unsubAuth = firebase.auth().onAuthStateChanged((user) => {
+    const unsubAuth = fb.onAuthStateChanged(fb.auth, (user) => {
       if (!user) return; // still signing in — the signInAnonymously() call below is in flight
       unsubChars();
       unsubTables();
 
-      unsubChars = db.collection("characters").onSnapshot(
+      unsubChars = fb.onSnapshot(fb.collection(fb.db, "characters"),
         (snap) => {
           const chars = snap.docs.map((d) => d.data());
           chars.sort((a, b) => a.createdAt - b.createdAt);
@@ -892,13 +899,13 @@ function DaggerheartTracker() {
         (err) => { setError("Couldn't reach the shared database: " + err.message); gotChars = true; maybeReady(); }
       );
 
-      unsubTables = db.collection("tables").onSnapshot(
+      unsubTables = fb.onSnapshot(fb.collection(fb.db, "tables"),
         (snap) => { setTableRegistry(snap.docs.map((d) => d.data())); gotTables = true; maybeReady(); },
         (err) => { setError("Couldn't reach the shared database: " + err.message); gotTables = true; maybeReady(); }
       );
     });
 
-    firebase.auth().signInAnonymously().catch((err) => {
+    fb.signInAnonymously(fb.auth).catch((err) => {
       setError(
         err.code === "auth/operation-not-allowed"
           ? "Anonymous sign-in isn't turned on for this Firebase project yet — enable it under Authentication → Sign-in method."
@@ -937,12 +944,12 @@ function DaggerheartTracker() {
   const cleanForFirestore = (obj) => JSON.parse(JSON.stringify(obj));
 
   const saveCharacter = async (char) => {
-    try { await db.collection("characters").doc(char.id).set(cleanForFirestore(char)); }
+    try { await fb.setDoc(fb.doc(fb.db, "characters", char.id), cleanForFirestore(char)); }
     catch { setError("Save failed — your last change may not have synced."); }
   };
 
   const deleteCharacter = async (id) => {
-    try { await db.collection("characters").doc(id).delete(); } catch { /* ignore */ }
+    try { await fb.deleteDoc(fb.doc(fb.db, "characters", id)); } catch { /* ignore */ }
     if (activeId === id) { setActiveId(null); setView("roster"); }
   };
 
@@ -959,14 +966,14 @@ function DaggerheartTracker() {
 
   const createTable = async (name, dmName) => {
     const t = { id: uid(), name: name.trim(), dmName: dmName.trim(), code: genJoinCode(), createdAt: Date.now(), dmViewerId: viewerId };
-    try { await db.collection("tables").doc(t.id).set(cleanForFirestore(t)); return t; }
+    try { await fb.setDoc(fb.doc(fb.db, "tables", t.id), cleanForFirestore(t)); return t; }
     catch { setError("Couldn't save the new table — try again."); return t; }
   };
 
   /** Deletes one table. Any characters linked to it are un-sorted (not deleted) so they fall back to the
    * shared "unclaimed" pool rather than becoming permanently orphaned. */
   const deleteTable = async (tableId) => {
-    try { await db.collection("tables").doc(tableId).delete(); } catch { /* ignore */ }
+    try { await fb.deleteDoc(fb.doc(fb.db, "tables", tableId)); } catch { /* ignore */ }
     const orphaned = characters.filter((c) => c.tableId === tableId);
     for (const c of orphaned) {
       await saveCharacter({ ...c, table: "", tableId: "", dmName: "" });
