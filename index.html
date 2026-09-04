@@ -81,6 +81,12 @@ const Trash2 = ({ size }) => (
 const Sparkles = ({ size }) => (
   <Icon size={size}><path d="M12 3l1.6 4.9L18.5 9l-4.9 1.6L12 15.5l-1.6-4.9L5.5 9l4.9-1.6L12 3z" /></Icon>
 );
+const Printer = ({ size }) => (
+  <Icon size={size}>
+    <polyline points="6 9 6 2 18 2 18 9" /><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+    <rect x="6" y="14" width="12" height="8" />
+  </Icon>
+);
 const Dices = ({ size }) => (
   <Icon size={size}>
     <rect x="3" y="3" width="18" height="18" rx="4" />
@@ -330,6 +336,201 @@ const ARMORS = [
   { tier: 4, name: "Savior Chainmail", minor: 18, major: 48, score: 8, feature: "Difficult: -1 all traits and Evasion", evasionMod: -1 },
 ];
 
+const WEAPONS = [
+  { name: "Aantari Bow", category: "Primary", tier: 4, trait: "Finesse", range: "Far", damage: "d6+11", type: "phy", burden: "Two-Handed", feature: "Reliable: +1 to attack rolls" },
+  { name: "Advanced Arcane Gauntlets", category: "Primary", tier: 3, trait: "Strength", range: "Melee", damage: "d10+9", type: "mag", burden: "Two-Handed", feature: "" },
+  { name: "Advanced Battleaxe", category: "Primary", tier: 3, trait: "Strength", range: "Melee", damage: "d10+9", type: "phy", burden: "Two-Handed", feature: "" },
+  { name: "Advanced Broadsword", category: "Primary", tier: 3, trait: "Agility", range: "Melee", damage: "d8+6", type: "phy", burden: "One-Handed", feature: "Reliable: +1 to attack rolls" },
+  { name: "Advanced Crossbow", category: "Primary", tier: 3, trait: "Finesse", range: "Far", damage: "d6+7", type: "phy", burden: "One-Handed", feature: "" },
+  { name: "Advanced Cutlass", category: "Primary", tier: 3, trait: "Presence", range: "Melee", damage: "d8+7", type: "phy", burden: "One-Handed", feature: "" },
+  { name: "Advanced Dagger", category: "Primary", tier: 3, trait: "Finesse", range: "Melee", damage: "d8+7", type: "phy", burden: "One-Handed", feature: "" },
+  { name: "Advanced Dualstaff", category: "Primary", tier: 3, trait: "Instinct", range: "Far", damage: "d6+9", type: "mag", burden: "Two-Handed", feature: "" },
+  { name: "Advanced Glowing Rings", category: "Primary", tier: 3, trait: "Agility", range: "Very Close", damage: "d10+8", type: "mag", burden: "Two-Handed", feature: "" },
+  { name: "Advanced Grappler", category: "Secondary", tier: 3, trait: "Finesse", range: "Close", damage: "d6+4", type: "phy", burden: "One-Handed", feature: "Hooked: On a successful attack, you can pull the target into Melee range." },
+  { name: "Advanced Greatstaff", category: "Primary", tier: 3, trait: "Knowledge", range: "Very Far", damage: "d6+6", type: "mag", burden: "Two-Handed", feature: "Powerful: On a successful attack, roll an additional damage die and discard the lowest result." },
+  { name: "Advanced Greatsword", category: "Primary", tier: 3, trait: "Strength", range: "Melee", damage: "d10+9", type: "phy", burden: "Two-Handed", feature: "Massive: -1 to Evasion; on a successful attack, roll an additional damage die and discard the lowest result." },
+  { name: "Advanced Halberd", category: "Primary", tier: 3, trait: "Strength", range: "Very Close", damage: "d10+8", type: "phy", burden: "Two-Handed", feature: "Cumbersome: -1 to Finesse" },
+  { name: "Advanced Hallowed Axe", category: "Primary", tier: 3, trait: "Strength", range: "Melee", damage: "d8+7", type: "mag", burden: "One-Handed", feature: "" },
+  { name: "Advanced Hand Crossbow", category: "Secondary", tier: 3, trait: "Finesse", range: "Far", damage: "d6+5", type: "phy", burden: "One-Handed", feature: "" },
+  { name: "Advanced Hand Runes", category: "Primary", tier: 3, trait: "Instinct", range: "Very Close", damage: "d10+6", type: "mag", burden: "One-Handed", feature: "" },
+  { name: "Advanced Longbow", category: "Primary", tier: 3, trait: "Agility", range: "Very Far", damage: "d8+9", type: "phy", burden: "Two-Handed", feature: "Cumbersome: -1 to Finesse" },
+  { name: "Advanced Longsword", category: "Primary", tier: 3, trait: "Agility", range: "Melee", damage: "d10+9", type: "phy", burden: "Two-Handed", feature: "" },
+  { name: "Advanced Mace", category: "Primary", tier: 3, trait: "Strength", range: "Melee", damage: "d8+7", type: "phy", burden: "One-Handed", feature: "" },
+  { name: "Advanced Quarterstaff", category: "Primary", tier: 3, trait: "Instinct", range: "Melee", damage: "d10+9", type: "phy", burden: "Two-Handed", feature: "" },
+  { name: "Advanced Rapier", category: "Primary", tier: 3, trait: "Presence", range: "Melee", damage: "d8+6", type: "phy", burden: "One-Handed", feature: "Quick: When you make an attack, you can mark a Stress to target another creature within range." },
+  { name: "Advanced Returning Blade", category: "Primary", tier: 3, trait: "Finesse", range: "Close", damage: "d8+6", type: "mag", burden: "One-Handed", feature: "Returning: When this weapon is thrown within its range, it appears in your hand immediately after the attack." },
+  { name: "Advanced Round Shield", category: "Secondary", tier: 3, trait: "Strength", range: "Melee", damage: "d4+4", type: "phy", burden: "One-Handed", feature: "Protective: +3 to Armor Score" },
+  { name: "Advanced Scepter", category: "Primary", tier: 3, trait: "Presence", range: "Far", damage: "d6+6", type: "mag", burden: "Two-Handed", feature: "Versatile: This weapon can also be used with these statistics—Presence, Melee, d8+4." },
+  { name: "Advanced Shortbow", category: "Primary", tier: 3, trait: "Agility", range: "Far", damage: "d6+9", type: "phy", burden: "Two-Handed", feature: "" },
+  { name: "Advanced Shortstaff", category: "Primary", tier: 3, trait: "Instinct", range: "Close", damage: "d8+7", type: "mag", burden: "One-Handed", feature: "" },
+  { name: "Advanced Shortsword", category: "Secondary", tier: 3, trait: "Agility", range: "Melee", damage: "d8+4", type: "phy", burden: "One-Handed", feature: "Paired: +4 to primary weapon damage to targets within Melee range" },
+  { name: "Advanced Small Dagger", category: "Secondary", tier: 3, trait: "Finesse", range: "Melee", damage: "d8+4", type: "phy", burden: "One-Handed", feature: "Paired: +4 to primary weapon damage to targets within Melee range" },
+  { name: "Advanced Spear", category: "Primary", tier: 3, trait: "Finesse", range: "Very Close", damage: "d8+9", type: "phy", burden: "Two-Handed", feature: "" },
+  { name: "Advanced Tower Shield", category: "Secondary", tier: 3, trait: "Strength", range: "Melee", damage: "d6+4", type: "phy", burden: "One-Handed", feature: "Barrier: +4 to Armor Score; –1 to Evasion" },
+  { name: "Advanced Wand", category: "Primary", tier: 3, trait: "Knowledge", range: "Far", damage: "d6+7", type: "mag", burden: "One-Handed", feature: "" },
+  { name: "Advanced Warhammer", category: "Primary", tier: 3, trait: "Strength", range: "Melee", damage: "d12+9", type: "phy", burden: "Two-Handed", feature: "Heavy: -1 to Evasion" },
+  { name: "Advanced Whip", category: "Secondary", tier: 3, trait: "Presence", range: "Very Close", damage: "d6+4", type: "phy", burden: "One-Handed", feature: "Startling: Mark a Stress to crack the whip and force all adversaries within Melee range back to Close range." },
+  { name: "Arcane Gauntlets", category: "Primary", tier: 1, trait: "Strength", range: "Melee", damage: "d10+3", type: "mag", burden: "Two-Handed", feature: "" },
+  { name: "Axe of Fortunis", category: "Primary", tier: 3, trait: "Strength", range: "Melee", damage: "d10+8", type: "mag", burden: "Two-Handed", feature: "Lucky: On a failed attack, you can mark a Stress to reroll your attack." },
+  { name: "Battleaxe", category: "Primary", tier: 1, trait: "Strength", range: "Melee", damage: "d10+3", type: "phy", burden: "Two-Handed", feature: "" },
+  { name: "Black Powder Revolver", category: "Primary", tier: 3, trait: "Finesse", range: "Far", damage: "d6+8", type: "phy", burden: "One-Handed", feature: "Reloading: After you make an attack, roll a d6. On a result of 1, you must mark a Stress to reload this weapon before you can fire it again." },
+  { name: "Bladed Whip", category: "Primary", tier: 2, trait: "Agility", range: "Very Close", damage: "d8+3", type: "phy", burden: "One-Handed", feature: "Quick: When you make an attack, you can mark a Stress to target another creature within range." },
+  { name: "Blessed Anlace", category: "Primary", tier: 3, trait: "Instinct", range: "Melee", damage: "d10+6", type: "mag", burden: "One-Handed", feature: "Healing: During downtime, automatically clear a Hit Point." },
+  { name: "Bloodstaff", category: "Primary", tier: 4, trait: "Instinct", range: "Far", damage: "d20+7", type: "mag", burden: "Two-Handed", feature: "Painful: Each time you make a successful attack, you must mark a Stress." },
+  { name: "Blunderbuss", category: "Primary", tier: 2, trait: "Finesse", range: "Close", damage: "d8+6", type: "phy", burden: "Two-Handed", feature: "Reloading: After you make an attack, roll a d6. On a result of 1, you must mark a Stress to reload this weapon before you can fire it again." },
+  { name: "Braveshield", category: "Secondary", tier: 4, trait: "Agility", range: "Melee", damage: "d4+6", type: "phy", burden: "One-Handed", feature: "Sheltering: When you mark an Armor Slot, it reduces damage for you and all allies within Melee range of you who took the same damage." },
+  { name: "Bravesword", category: "Primary", tier: 3, trait: "Strength", range: "Melee", damage: "d12+7", type: "phy", burden: "Two-Handed", feature: "Brave: -1 to Evasion; +3 to Severe damage threshold" },
+  { name: "Broadsword", category: "Primary", tier: 1, trait: "Agility", range: "Melee", damage: "d8", type: "phy", burden: "One-Handed", feature: "Reliable: +1 to attack rolls" },
+  { name: "Buckler", category: "Secondary", tier: 3, trait: "Agility", range: "Melee", damage: "d4+4", type: "phy", burden: "One-Handed", feature: "Deflecting: When you are attacked, you can mark an Armor Slot to gain a bonus to your Evasion equal to your available Armor Slots against the attack." },
+  { name: "Casting Sword", category: "Primary", tier: 2, trait: "Strength", range: "Melee", damage: "d10+4", type: "mag", burden: "Two-Handed", feature: "Versatile: This weapon can also be used with these statistics—Knowledge, Far, d6+3." },
+  { name: "Crossbow", category: "Primary", tier: 1, trait: "Finesse", range: "Far", damage: "d6+1", type: "phy", burden: "One-Handed", feature: "" },
+  { name: "Curved Dagger", category: "Primary", tier: 4, trait: "Finesse", range: "Melee", damage: "d8+9", type: "phy", burden: "One-Handed", feature: "Serrated: When you roll a 1 on a damage die, it deals 8 damage instead." },
+  { name: "Cutlass", category: "Primary", tier: 1, trait: "Presence", range: "Melee", damage: "d8+1", type: "phy", burden: "One-Handed", feature: "" },
+  { name: "Dagger", category: "Primary", tier: 1, trait: "Finesse", range: "Melee", damage: "d8+1", type: "phy", burden: "One-Handed", feature: "" },
+  { name: "Devouring Dagger", category: "Primary", tier: 2, trait: "Finesse", range: "Melee", damage: "d8+4", type: "mag", burden: "One-Handed", feature: "Scary: On a successful attack, the target must mark a Stress." },
+  { name: "Double Flail", category: "Primary", tier: 3, trait: "Agility", range: "Very Close", damage: "d10+8", type: "phy", burden: "Two-Handed", feature: "Powerful: On a successful attack, roll an additional damage die and discard the lowest result." },
+  { name: "Dual-Ended Sword", category: "Primary", tier: 4, trait: "Agility", range: "Melee", damage: "d10+9", type: "phy", burden: "Two-Handed", feature: "Quick: When you make an attack, you can mark a Stress to target another creature within range." },
+  { name: "Dualstaff", category: "Primary", tier: 1, trait: "Instinct", range: "Far", damage: "d6+3", type: "mag", burden: "Two-Handed", feature: "" },
+  { name: "Ego Blade", category: "Primary", tier: 2, trait: "Agility", range: "Melee", damage: "d12+4", type: "mag", burden: "One-Handed", feature: "Pompous: You must have a Presence of 0 or lower to use this weapon." },
+  { name: "Elder Bow", category: "Primary", tier: 2, trait: "Instinct", range: "Far", damage: "d6+4", type: "mag", burden: "Two-Handed", feature: "Powerful: On a successful attack, roll an additional damage die and discard the lowest result." },
+  { name: "Extended Polearm", category: "Primary", tier: 4, trait: "Finesse", range: "Very Close", damage: "d8+10", type: "phy", burden: "Two-Handed", feature: "Long: This weapon's attack targets all adversaries in a line within range." },
+  { name: "Finehair Bow", category: "Primary", tier: 2, trait: "Agility", range: "Very Far", damage: "d6+5", type: "phy", burden: "Two-Handed", feature: "Reliable: +1 to attack rolls" },
+  { name: "Firestaff", category: "Primary", tier: 3, trait: "Instinct", range: "Far", damage: "d6+7", type: "mag", burden: "Two-Handed", feature: "Burning: When you roll a 6 on a damage die, the target must mark a Stress." },
+  { name: "Flickerfly Blade", category: "Primary", tier: 3, trait: "Agility", range: "Melee", damage: "d8+5", type: "phy", burden: "One-Handed", feature: "Sharpwing: Gain a bonus to your damage rolls equal to your Agility." },
+  { name: "Floating Bladeshards", category: "Primary", tier: 4, trait: "Instinct", range: "Close", damage: "d8+9", type: "mag", burden: "One-Handed", feature: "Powerful: On a successful attack, roll an additional damage die and discard the lowest result." },
+  { name: "Fusion Gloves", category: "Primary", tier: 4, trait: "Knowledge", range: "Very Far", damage: "d6+9", type: "mag", burden: "Two-Handed", feature: "Bonded: Gain a bonus to your damage rolls equal to your level." },
+  { name: "Ghostblade", category: "Primary", tier: 3, trait: "Presence", range: "Melee", damage: "d10+7", type: "phy or mag", burden: "One-Handed", feature: "Otherworldly: On a successful attack, you can deal physical or magic damage." },
+  { name: "Gilded Bow", category: "Primary", tier: 3, trait: "Finesse", range: "Far", damage: "d6+7", type: "mag", burden: "Two-Handed", feature: "Self-Correcting: When you roll a 1 on a damage die, it deals 6 damage instead." },
+  { name: "Gilded Falchion", category: "Primary", tier: 2, trait: "Strength", range: "Melee", damage: "d10+4", type: "phy", burden: "One-Handed", feature: "Powerful: On a successful attack, roll an additional damage die and discard the lowest result." },
+  { name: "Glowing Rings", category: "Primary", tier: 1, trait: "Agility", range: "Very Close", damage: "d10+2", type: "mag", burden: "Two-Handed", feature: "" },
+  { name: "Grappler", category: "Secondary", tier: 1, trait: "Finesse", range: "Close", damage: "d6", type: "phy", burden: "One-Handed", feature: "Hooked: On a successful attack, you can pull the target into Melee range." },
+  { name: "Greatbow", category: "Primary", tier: 2, trait: "Strength", range: "Far", damage: "d6+6", type: "phy", burden: "Two-Handed", feature: "Powerful: On a successful attack, roll an additional damage die and discard the lowest result." },
+  { name: "Greatstaff", category: "Primary", tier: 1, trait: "Knowledge", range: "Very Far", damage: "d6", type: "mag", burden: "Two-Handed", feature: "Powerful: On a successful attack, roll an additional damage die and discard the lowest result." },
+  { name: "Greatsword", category: "Primary", tier: 1, trait: "Strength", range: "Melee", damage: "d10+3", type: "phy", burden: "Two-Handed", feature: "Massive: -1 to Evasion; on a successful attack, roll an additional damage die and discard the lowest result." },
+  { name: "Halberd", category: "Primary", tier: 1, trait: "Strength", range: "Very Close", damage: "d10+2", type: "phy", burden: "Two-Handed", feature: "Cumbersome: -1 to Finesse" },
+  { name: "Hallowed Axe", category: "Primary", tier: 1, trait: "Strength", range: "Melee", damage: "d8+1", type: "mag", burden: "One-Handed", feature: "" },
+  { name: "Hammer of Exota", category: "Primary", tier: 2, trait: "Instinct", range: "Melee", damage: "d8+6", type: "mag", burden: "Two-Handed", feature: "Eruptive: On a successful attack against a target within Melee range, all other adversaries within Very Close range must succeed on a reaction roll (14) or take half damage." },
+  { name: "Hammer of Wrath", category: "Primary", tier: 3, trait: "Strength", range: "Melee", damage: "d10+7", type: "phy", burden: "Two-Handed", feature: "Devastating: Before you make an attack roll, you can mark a Stress to use a d20 as your damage die." },
+  { name: "Hand Cannon", category: "Primary", tier: 4, trait: "Finesse", range: "Very Far", damage: "d6+12", type: "phy", burden: "One-Handed", feature: "Reloading: After you make an attack, roll a d6. On a 1, you must mark a Stress to reload this weapon before you can fire it again." },
+  { name: "Hand Crossbow", category: "Secondary", tier: 1, trait: "Finesse", range: "Far", damage: "d6+1", type: "phy", burden: "One-Handed", feature: "" },
+  { name: "Hand Runes", category: "Primary", tier: 1, trait: "Instinct", range: "Very Close", damage: "d10", type: "mag", burden: "One-Handed", feature: "" },
+  { name: "Hand Sling", category: "Secondary", tier: 3, trait: "Finesse", range: "Very Far", damage: "d6+4", type: "phy", burden: "One-Handed", feature: "Versatile: This weapon can also be used with these statistics—Finesse, Close, d8+4." },
+  { name: "Ilmari's Rifle", category: "Primary", tier: 3, trait: "Finesse", range: "Very Far", damage: "d6+6", type: "mag", burden: "One-Handed", feature: "Reloading: After you make an attack, roll a d6. On a result of 1, you must mark a Stress to reload this weapon before you can fire it again." },
+  { name: "Impact Gauntlet", category: "Primary", tier: 4, trait: "Strength", range: "Melee", damage: "d10+11", type: "phy", burden: "One-Handed", feature: "Concussive: On a successful attack, you can spend a Hope to knock the target back to Far range." },
+  { name: "Improved Arcane Gauntlets", category: "Primary", tier: 2, trait: "Strength", range: "Melee", damage: "d10+6", type: "mag", burden: "Two-Handed", feature: "" },
+  { name: "Improved Battleaxe", category: "Primary", tier: 2, trait: "Strength", range: "Melee", damage: "d10+6", type: "phy", burden: "Two-Handed", feature: "" },
+  { name: "Improved Broadsword", category: "Primary", tier: 2, trait: "Agility", range: "Melee", damage: "d8+3", type: "phy", burden: "One-Handed", feature: "Reliable: +1 to attack rolls" },
+  { name: "Improved Crossbow", category: "Primary", tier: 2, trait: "Finesse", range: "Far", damage: "d6+4", type: "phy", burden: "One-Handed", feature: "" },
+  { name: "Improved Cutlass", category: "Primary", tier: 2, trait: "Presence", range: "Melee", damage: "d8+4", type: "phy", burden: "One-Handed", feature: "" },
+  { name: "Improved Dagger", category: "Primary", tier: 2, trait: "Finesse", range: "Melee", damage: "d8+4", type: "phy", burden: "One-Handed", feature: "" },
+  { name: "Improved Dualstaff", category: "Primary", tier: 2, trait: "Instinct", range: "Far", damage: "d6+6", type: "mag", burden: "Two-Handed", feature: "" },
+  { name: "Improved Glowing Rings", category: "Primary", tier: 2, trait: "Agility", range: "Very Close", damage: "d10+5", type: "mag", burden: "Two-Handed", feature: "" },
+  { name: "Improved Grappler", category: "Secondary", tier: 2, trait: "Finesse", range: "Close", damage: "d6+2", type: "phy", burden: "One-Handed", feature: "Hooked: On a successful attack, you can pull the target into Melee range." },
+  { name: "Improved Greatstaff", category: "Primary", tier: 2, trait: "Knowledge", range: "Very Far", damage: "d6+3", type: "mag", burden: "Two-Handed", feature: "Powerful: On a successful attack, roll an additional damage die and discard the lowest result." },
+  { name: "Improved Greatsword", category: "Primary", tier: 2, trait: "Strength", range: "Melee", damage: "d10+6", type: "phy", burden: "Two-Handed", feature: "Massive: -1 to Evasion; on a successful attack, roll an additional damage die and discard the lowest result." },
+  { name: "Improved Halberd", category: "Primary", tier: 2, trait: "Strength", range: "Very Close", damage: "d10+5", type: "phy", burden: "Two-Handed", feature: "Cumbersome: -1 to Finesse" },
+  { name: "Improved Hallowed Axe", category: "Primary", tier: 2, trait: "Strength", range: "Melee", damage: "d8+4", type: "mag", burden: "One-Handed", feature: "" },
+  { name: "Improved Hand Crossbow", category: "Secondary", tier: 2, trait: "Finesse", range: "Far", damage: "d6+3", type: "phy", burden: "One-Handed", feature: "" },
+  { name: "Improved Hand Runes", category: "Primary", tier: 2, trait: "Instinct", range: "Very Close", damage: "d10+3", type: "mag", burden: "One-Handed", feature: "" },
+  { name: "Improved Longbow", category: "Primary", tier: 2, trait: "Agility", range: "Very Far", damage: "d8+6", type: "phy", burden: "Two-Handed", feature: "Cumbersome: -1 to Finesse" },
+  { name: "Improved Longsword", category: "Primary", tier: 2, trait: "Agility", range: "Melee", damage: "d10+6", type: "phy", burden: "Two-Handed", feature: "" },
+  { name: "Improved Mace", category: "Primary", tier: 2, trait: "Strength", range: "Melee", damage: "d8+4", type: "phy", burden: "One-Handed", feature: "" },
+  { name: "Improved Quarterstaff", category: "Primary", tier: 2, trait: "Instinct", range: "Melee", damage: "d10+6", type: "phy", burden: "Two-Handed", feature: "" },
+  { name: "Improved Rapier", category: "Primary", tier: 2, trait: "Presence", range: "Melee", damage: "d8+3", type: "phy", burden: "One-Handed", feature: "Quick: When you make an attack, you can mark a Stress to target another creature within range." },
+  { name: "Improved Returning Blade", category: "Primary", tier: 2, trait: "Finesse", range: "Close", damage: "d8+3", type: "mag", burden: "One-Handed", feature: "Returning: When this weapon is thrown within its range, it appears in your hand immediately after the attack." },
+  { name: "Improved Round Shield", category: "Secondary", tier: 2, trait: "Strength", range: "Melee", damage: "d4+2", type: "phy", burden: "One-Handed", feature: "Protective: +2 to Armor Score" },
+  { name: "Improved Scepter", category: "Primary", tier: 2, trait: "Presence", range: "Far", damage: "d6+3", type: "mag", burden: "Two-Handed", feature: "Versatile: This weapon can also be used with these statistics—Presence, Melee, d8+3." },
+  { name: "Improved Shortbow", category: "Primary", tier: 2, trait: "Agility", range: "Far", damage: "d6+6", type: "phy", burden: "Two-Handed", feature: "" },
+  { name: "Improved Shortstaff", category: "Primary", tier: 2, trait: "Instinct", range: "Close", damage: "d8+4", type: "mag", burden: "One-Handed", feature: "" },
+  { name: "Improved Shortsword", category: "Secondary", tier: 2, trait: "Agility", range: "Melee", damage: "d8+2", type: "phy", burden: "One-Handed", feature: "Paired: +3 to primary weapon damage to targets within Melee range" },
+  { name: "Improved Small Dagger", category: "Secondary", tier: 2, trait: "Finesse", range: "Melee", damage: "d8+2", type: "phy", burden: "One-Handed", feature: "Paired: +3 to primary weapon damage to targets within Melee range" },
+  { name: "Improved Spear", category: "Primary", tier: 2, trait: "Finesse", range: "Very Close", damage: "d8+6", type: "phy", burden: "Two-Handed", feature: "" },
+  { name: "Improved Tower Shield", category: "Secondary", tier: 2, trait: "Strength", range: "Melee", damage: "d6+2", type: "phy", burden: "One-Handed", feature: "Barrier: +3 to Armor Score; -1 to Evasion" },
+  { name: "Improved Wand", category: "Primary", tier: 2, trait: "Knowledge", range: "Far", damage: "d6+4", type: "mag", burden: "One-Handed", feature: "" },
+  { name: "Improved Warhammer", category: "Primary", tier: 2, trait: "Strength", range: "Melee", damage: "d12+6", type: "phy", burden: "Two-Handed", feature: "Heavy: -1 to Evasion" },
+  { name: "Improved Whip", category: "Secondary", tier: 2, trait: "Presence", range: "Very Close", damage: "d6+2", type: "phy", burden: "One-Handed", feature: "Startling: Mark a Stress to crack the whip and force all adversaries within Melee range back to Close range." },
+  { name: "Keeper's Staff", category: "Primary", tier: 2, trait: "Knowledge", range: "Far", damage: "d6+4", type: "mag", burden: "Two-Handed", feature: "Reliable: +1 to attack rolls" },
+  { name: "Knuckle Blades", category: "Primary", tier: 2, trait: "Strength", range: "Melee", damage: "d10+6", type: "phy", burden: "Two-Handed", feature: "Brutal: When you roll the maximum value on a damage die, roll an additional damage die." },
+  { name: "Knuckle Claws", category: "Secondary", tier: 4, trait: "Strength", range: "Melee", damage: "d6+8", type: "phy", burden: "One-Handed", feature: "Doubled Up: When you make an attack with your primary weapon, you can deal damage to another target within Melee range." },
+  { name: "Labrys Axe", category: "Primary", tier: 3, trait: "Strength", range: "Melee", damage: "d10+7", type: "phy", burden: "Two-Handed", feature: "Protective: +1 to Armor Score" },
+  { name: "Legendary Arcane Gauntlets", category: "Primary", tier: 4, trait: "Strength", range: "Melee", damage: "d10+12", type: "mag", burden: "Two-Handed", feature: "" },
+  { name: "Legendary Battleaxe", category: "Primary", tier: 4, trait: "Strength", range: "Melee", damage: "d10+12", type: "phy", burden: "Two-Handed", feature: "" },
+  { name: "Legendary Broadsword", category: "Primary", tier: 4, trait: "Agility", range: "Melee", damage: "d8+9", type: "phy", burden: "One-Handed", feature: "Reliable: +1 to attack rolls" },
+  { name: "Legendary Crossbow", category: "Primary", tier: 4, trait: "Finesse", range: "Far", damage: "d6+10", type: "phy", burden: "One-Handed", feature: "" },
+  { name: "Legendary Cutlass", category: "Primary", tier: 4, trait: "Presence", range: "Melee", damage: "d8+10", type: "phy", burden: "One-Handed", feature: "" },
+  { name: "Legendary Dagger", category: "Primary", tier: 4, trait: "Finesse", range: "Melee", damage: "d8+10", type: "phy", burden: "One-Handed", feature: "" },
+  { name: "Legendary Dualstaff", category: "Primary", tier: 4, trait: "Instinct", range: "Far", damage: "d8+12", type: "mag", burden: "Two-Handed", feature: "" },
+  { name: "Legendary Glowing Rings", category: "Primary", tier: 4, trait: "Agility", range: "Very Close", damage: "d10+11", type: "mag", burden: "Two-Handed", feature: "" },
+  { name: "Legendary Grappler", category: "Secondary", tier: 4, trait: "Finesse", range: "Close", damage: "d6+6", type: "phy", burden: "One-Handed", feature: "Hooked: On a successful attack, you can pull the target into Melee range." },
+  { name: "Legendary Greatstaff", category: "Primary", tier: 4, trait: "Knowledge", range: "Very Far", damage: "d6+9", type: "mag", burden: "Two-Handed", feature: "Powerful: On a successful attack, roll an additional damage die and discard the lowest result." },
+  { name: "Legendary Greatsword", category: "Primary", tier: 4, trait: "Strength", range: "Melee", damage: "d10+12", type: "phy", burden: "Two-Handed", feature: "Massive: -1 to Evasion; on a successful attack, roll an additional damage die and discard the lowest result." },
+  { name: "Legendary Halberd", category: "Primary", tier: 4, trait: "Strength", range: "Very Close", damage: "d10+11", type: "phy", burden: "Two-Handed", feature: "Cumbersome: -1 to Finesse" },
+  { name: "Legendary Hallowed Axe", category: "Primary", tier: 4, trait: "Strength", range: "Melee", damage: "d8+10", type: "mag", burden: "One-Handed", feature: "" },
+  { name: "Legendary Hand Crossbow", category: "Secondary", tier: 4, trait: "Finesse", range: "Far", damage: "d6+7", type: "phy", burden: "One-Handed", feature: "" },
+  { name: "Legendary Hand Runes", category: "Primary", tier: 4, trait: "Instinct", range: "Very Close", damage: "d10+9", type: "mag", burden: "One-Handed", feature: "" },
+  { name: "Legendary Longbow", category: "Primary", tier: 4, trait: "Agility", range: "Very Far", damage: "d8+12", type: "phy", burden: "Two-Handed", feature: "Cumbersome: -1 to Finesse" },
+  { name: "Legendary Longsword", category: "Primary", tier: 4, trait: "Agility", range: "Melee", damage: "d10+12", type: "phy", burden: "Two-Handed", feature: "" },
+  { name: "Legendary Mace", category: "Primary", tier: 4, trait: "Strength", range: "Melee", damage: "d8+10", type: "phy", burden: "One-Handed", feature: "" },
+  { name: "Legendary Quarterstaff", category: "Primary", tier: 4, trait: "Instinct", range: "Melee", damage: "d10+12", type: "phy", burden: "Two-Handed", feature: "" },
+  { name: "Legendary Rapier", category: "Primary", tier: 4, trait: "Presence", range: "Melee", damage: "d8+9", type: "phy", burden: "One-Handed", feature: "Quick: When you make an attack, you can mark a Stress to target another creature within range." },
+  { name: "Legendary Returning Blade", category: "Primary", tier: 4, trait: "Finesse", range: "Close", damage: "d8+9", type: "mag", burden: "One-Handed", feature: "Returning: When this weapon is thrown within its range, it appears in your hand immediately after the attack." },
+  { name: "Legendary Round Shield", category: "Secondary", tier: 4, trait: "Strength", range: "Melee", damage: "d4+6", type: "phy", burden: "One-Handed", feature: "Protective: +4 to Armor Score" },
+  { name: "Legendary Scepter", category: "Primary", tier: 4, trait: "Presence", range: "Far", damage: "d6+9", type: "mag", burden: "Two-Handed", feature: "Versatile: This weapon can also be used with these statistics—Presence, Melee, d8+6." },
+  { name: "Legendary Shortbow", category: "Primary", tier: 4, trait: "Agility", range: "Far", damage: "d6+12", type: "phy", burden: "Two-Handed", feature: "" },
+  { name: "Legendary Shortstaff", category: "Primary", tier: 4, trait: "Instinct", range: "Close", damage: "d8+10", type: "mag", burden: "One-Handed", feature: "" },
+  { name: "Legendary Shortsword", category: "Secondary", tier: 4, trait: "Agility", range: "Melee", damage: "d8+6", type: "phy", burden: "One-Handed", feature: "Paired: +5 to primary weapon damage to targets within Melee range" },
+  { name: "Legendary Small Dagger", category: "Secondary", tier: 4, trait: "Finesse", range: "Melee", damage: "d8+6", type: "phy", burden: "One-Handed", feature: "Paired: +5 to primary weapon damage to targets within Melee range" },
+  { name: "Legendary Spear", category: "Primary", tier: 4, trait: "Finesse", range: "Very Close", damage: "d8+12", type: "phy", burden: "Two-Handed", feature: "" },
+  { name: "Legendary Tower Shield", category: "Secondary", tier: 4, trait: "Strength", range: "Melee", damage: "d6+6", type: "phy", burden: "One-Handed", feature: "Barrier: +5 to Armor Score; –1 to Evasion." },
+  { name: "Legendary Wand", category: "Primary", tier: 4, trait: "Knowledge", range: "Far", damage: "d6+10", type: "mag", burden: "One-Handed", feature: "" },
+  { name: "Legendary Warhammer", category: "Primary", tier: 4, trait: "Strength", range: "Melee", damage: "d12+12", type: "phy", burden: "Two-Handed", feature: "Heavy: -1 to Evasion" },
+  { name: "Legendary Whip", category: "Secondary", tier: 4, trait: "Presence", range: "Very Close", damage: "d6+6", type: "phy", burden: "One-Handed", feature: "Startling: Mark a Stress to crack the whip and force all adversaries within Melee range back to Close range." },
+  { name: "Longbow", category: "Primary", tier: 1, trait: "Agility", range: "Very Far", damage: "d8+3", type: "phy", burden: "Two-Handed", feature: "Cumbersome: -1 to Finesse" },
+  { name: "Longsword", category: "Primary", tier: 1, trait: "Agility", range: "Melee", damage: "d10+3", type: "phy", burden: "Two-Handed", feature: "" },
+  { name: "Mace", category: "Primary", tier: 1, trait: "Strength", range: "Melee", damage: "d8+1", type: "phy", burden: "One-Handed", feature: "" },
+  { name: "Mage Orb", category: "Primary", tier: 3, trait: "Knowledge", range: "Far", damage: "d6+7", type: "mag", burden: "One-Handed", feature: "Powerful: On a successful attack, roll an additional damage die and discard the lowest result." },
+  { name: "Magus Revolver", category: "Primary", tier: 4, trait: "Finesse", range: "Very Far", damage: "d6+13", type: "mag", burden: "One-Handed", feature: "Reloading: After you make an attack, roll a d6. On a result of 1, you must mark a Stress to reload this weapon before you can fire it again." },
+  { name: "Meridian Cutlass", category: "Primary", tier: 3, trait: "Presence", range: "Melee", damage: "d10+5", type: "phy", burden: "One-Handed", feature: "Dueling: When there are no other creatures within Close range of the target, gain advantage on your attack roll against them." },
+  { name: "Midas Scythe", category: "Primary", tier: 4, trait: "Knowledge", range: "Melee", damage: "d10+9", type: "mag", burden: "Two-Handed", feature: "Greedy: Spend a handful of gold to gain a +1 bonus to your Proficiency on a damage roll." },
+  { name: "Parrying Dagger", category: "Secondary", tier: 2, trait: "Finesse", range: "Melee", damage: "d6+2", type: "phy", burden: "One-Handed", feature: "Parry: When you are attacked, roll this weapon's damage dice. If any of the attacker's damage dice rolled the same value as your dice, the matching results are discarded from the attacker's damage dice before the damage you take is totaled." },
+  { name: "Powered Gauntlet", category: "Secondary", tier: 3, trait: "Knowledge", range: "Close", damage: "d6+4", type: "phy", burden: "One-Handed", feature: "Charged: Mark a Stress to gain a +1 bonus to your Proficiency on a primary weapon attack." },
+  { name: "Primer Shard", category: "Secondary", tier: 4, trait: "Instinct", range: "Very Close", damage: "d4", type: "phy", burden: "One-Handed", feature: "Locked On: On a successful attack, your next attack against the same target with your primary weapon automatically succeeds." },
+  { name: "Quarterstaff", category: "Primary", tier: 1, trait: "Instinct", range: "Melee", damage: "d10+3", type: "phy", burden: "Two-Handed", feature: "" },
+  { name: "Rapier", category: "Primary", tier: 1, trait: "Presence", range: "Melee", damage: "d8", type: "phy", burden: "One-Handed", feature: "Quick: When you make an attack, you can mark a Stress to target another creature within range." },
+  { name: "Retractable Saber", category: "Primary", tier: 3, trait: "Presence", range: "Melee", damage: "d10+7", type: "phy", burden: "One-Handed", feature: "Retractable: The blade can be hidden in the hilt to avoid detection." },
+  { name: "Returning Axe", category: "Secondary", tier: 2, trait: "Agility", range: "Close", damage: "d6+4", type: "phy", burden: "One-Handed", feature: "Returning: When this weapon is thrown within its range, it appears in your hand immediately after the attack." },
+  { name: "Returning Blade", category: "Primary", tier: 1, trait: "Finesse", range: "Close", damage: "d8", type: "mag", burden: "One-Handed", feature: "Returning: When this weapon is thrown within its range, it appears in your hand immediately after the attack." },
+  { name: "Ricochet Axes", category: "Primary", tier: 4, trait: "Agility", range: "Far", damage: "d6+11", type: "phy", burden: "Two-Handed", feature: "Bouncing: Mark 1 or more Stress to hit that many targets in range of the attack." },
+  { name: "Round Shield", category: "Secondary", tier: 1, trait: "Strength", range: "Melee", damage: "d4", type: "phy", burden: "One-Handed", feature: "Protective: +1 to Armor Score" },
+  { name: "Runes of Ruination", category: "Primary", tier: 3, trait: "Knowledge", range: "Very Close", damage: "d20+4", type: "mag", burden: "One-Handed", feature: "Painful: Each time you make a successful attack, you must mark a Stress." },
+  { name: "Scepter", category: "Primary", tier: 1, trait: "Presence", range: "Far", damage: "d6", type: "mag", burden: "Two-Handed", feature: "Versatile: This weapon can also be used with these statistics—Presence, Melee, d8." },
+  { name: "Scepter of Elias", category: "Primary", tier: 2, trait: "Presence", range: "Far", damage: "d6+3", type: "mag", burden: "One-Handed", feature: "Invigorating: On a successful attack, roll a d4. On a result of 4, clear a Stress." },
+  { name: "Shortbow", category: "Primary", tier: 1, trait: "Agility", range: "Far", damage: "d6+3", type: "phy", burden: "Two-Handed", feature: "" },
+  { name: "Shortstaff", category: "Primary", tier: 1, trait: "Instinct", range: "Close", damage: "d8+1", type: "mag", burden: "One-Handed", feature: "" },
+  { name: "Shortsword", category: "Secondary", tier: 1, trait: "Agility", range: "Melee", damage: "d8", type: "phy", burden: "One-Handed", feature: "Paired: +2 to primary weapon damage to targets within Melee range" },
+  { name: "Siphoning Gauntlets", category: "Primary", tier: 4, trait: "Presence", range: "Melee", damage: "d10+9", type: "mag", burden: "Two-Handed", feature: "Lifestealing: On a successful attack, roll a d6. On a result of 6, clear a Hit Point or clear a Stress." },
+  { name: "Sledge Axe", category: "Primary", tier: 4, trait: "Strength", range: "Melee", damage: "d12+13", type: "phy", burden: "Two-Handed", feature: "Destructive: -1 to Agility; on a successful attack, all adversaries within Very Close range must mark a Stress." },
+  { name: "Small Dagger", category: "Secondary", tier: 1, trait: "Finesse", range: "Melee", damage: "d8", type: "phy", burden: "One-Handed", feature: "Paired: +2 to primary weapon damage to targets within Melee range" },
+  { name: "Spear", category: "Primary", tier: 1, trait: "Finesse", range: "Very Close", damage: "d8+3", type: "phy", burden: "Two-Handed", feature: "" },
+  { name: "Spiked Bow", category: "Primary", tier: 3, trait: "Agility", range: "Very Far", damage: "d6+7", type: "phy", burden: "Two-Handed", feature: "Versatile: This weapon can also be used with these statistics—Agility, Melee, d10+5." },
+  { name: "Spiked Shield", category: "Secondary", tier: 2, trait: "Strength", range: "Melee", damage: "d6+2", type: "phy", burden: "One-Handed", feature: "Double Duty: +1 to Armor Score; +1 to primary weapon damage within Melee range" },
+  { name: "Steelforged Halberd", category: "Primary", tier: 2, trait: "Strength", range: "Very Close", damage: "d8+4", type: "phy", burden: "Two-Handed", feature: "Scary: On a successful attack, the target must mark a Stress." },
+  { name: "Swinging Ropeblade", category: "Primary", tier: 4, trait: "Presence", range: "Close", damage: "d8+9", type: "phy", burden: "Two-Handed", feature: "Grappling: On a successful attack, you can spend a Hope to Restrain the target or pull them into Melee range with you." },
+  { name: "Sword of Light & Flame", category: "Primary", tier: 4, trait: "Strength", range: "Melee", damage: "d10+11", type: "mag", burden: "Two-Handed", feature: "Hot: This weapon cuts through solid material." },
+  { name: "Talon Blades", category: "Primary", tier: 3, trait: "Finesse", range: "Close", damage: "d10+7", type: "phy", burden: "Two-Handed", feature: "Brutal: When you roll the maximum value on a damage die, roll an additional damage die." },
+  { name: "Thistlebow", category: "Primary", tier: 4, trait: "Instinct", range: "Far", damage: "d6+13", type: "mag", burden: "Two-Handed", feature: "Reliable: +1 to attack rolls" },
+  { name: "Tower Shield", category: "Secondary", tier: 1, trait: "Strength", range: "Melee", damage: "d6", type: "phy", burden: "One-Handed", feature: "Barrier: +2 to Armor Score; -1 to Evasion" },
+  { name: "Urok Broadsword", category: "Primary", tier: 2, trait: "Finesse", range: "Melee", damage: "d8+3", type: "phy", burden: "One-Handed", feature: "Deadly: When you deal Severe damage, the target must mark an additional HP." },
+  { name: "Wand", category: "Primary", tier: 1, trait: "Knowledge", range: "Far", damage: "d6+1", type: "mag", burden: "One-Handed", feature: "" },
+  { name: "Wand of Enthrallment", category: "Primary", tier: 2, trait: "Presence", range: "Far", damage: "d6+4", type: "mag", burden: "One-Handed", feature: "Persuasive: Before you make a Presence Roll, you can mark a Stress to gain a +2 bonus to the result." },
+  { name: "Wand of Essek", category: "Primary", tier: 4, trait: "Knowledge", range: "Far", damage: "d8+13", type: "mag", burden: "One-Handed", feature: "Timebending: You can choose the target of your attack after making your attack roll." },
+  { name: "War Scythe", category: "Primary", tier: 2, trait: "Finesse", range: "Very Close", damage: "d8+5", type: "phy", burden: "Two-Handed", feature: "Reliable: +1 to attack rolls" },
+  { name: "Warhammer", category: "Primary", tier: 1, trait: "Strength", range: "Melee", damage: "d12+3", type: "phy", burden: "Two-Handed", feature: "Heavy: -1 to Evasion" },
+  { name: "Whip", category: "Secondary", tier: 1, trait: "Presence", range: "Very Close", damage: "d6", type: "phy", burden: "One-Handed", feature: "Startling: Mark a Stress to crack the whip and force all adversaries within Melee range back to Close range." },
+  { name: "Widogast Pendant", category: "Primary", tier: 3, trait: "Knowledge", range: "Close", damage: "d10+5", type: "mag", burden: "One-Handed", feature: "Timebending: You choose the target of your attack after making your attack roll." },
+  { name: "Yutari Bloodbow", category: "Primary", tier: 2, trait: "Finesse", range: "Far", damage: "d6+4", type: "mag", burden: "Two-Handed", feature: "Brutal: When you roll the maximum value on a damage die, roll an additional damage die." },
+];
+
 const DOMAIN_CARDS = [
   // Arcana
   { domain: "Arcana", lvl: 1, name: "Rune Ward", type: "Spell", recall: 0, desc: "A personal ward token: spend a Hope to shave 1d8 off incoming damage; it can end on a max roll and recharges free on rest." },
@@ -559,6 +760,9 @@ const genJoinCode = (len = 12) => Array.from({ length: len }, () => JOIN_CODE_AL
 // security (it lives in this file's source), just enough to stop it from being triggered by accident.
 const classData = (name) => CLASSES.find((c) => c.name === name);
 const armorData = (name) => ARMORS.find((a) => a.name === name) || ARMORS[1];
+const weaponData = (name) => WEAPONS.find((w) => w.name === name);
+/** Cosmetic-only summary string for a weapon's stats — never used in any calculation, just displayed as a reminder. */
+const weaponSummary = (w) => w ? `${w.trait} · ${w.range} · ${w.damage} ${w.type} · ${w.burden}${w.feature ? ` · ${w.feature}` : ""}` : "";
 
 /** Sums any flat numeric `bonus` entries in a subclass feature tier (foundation/specialization/mastery). */
 function tierBonuses(subclassName, tier) {
@@ -597,7 +801,9 @@ function ancestryBonuses(char) {
  * threshold" concept this app simplifies away — these two are the ones that map cleanly onto stats we
  * already track, so recomputed live from however many matching cards are currently in the loadout. */
 function domainTouchedBonuses(char) {
-  const cards = char.domainCards || [];
+  // Only cards actually in the active loadout count toward a "4+ cards in your loadout" threshold —
+  // vaulted cards you merely own don't count, per the rules.
+  const cards = (char.domainCards || []).filter((c) => c.inLoadout !== false);
   const countIn = (domain) => cards.filter((c) => c.domain === domain).length;
   const traitBonus = {};
   if (countIn("Bone") >= 4) traitBonus.Agility = (traitBonus.Agility || 0) + 1; // Bone-Touched
@@ -841,6 +1047,38 @@ function RedeemTableCode({ tableRegistry, onRedeem, compact = false }) {
   );
 }
 
+/** Weapon picker: a dropdown over the whole WEAPONS table (all tiers, no filtering — the character sheet
+ * isn't a virtual tabletop, so we don't gatekeep which weapons someone can pick, they just found it). Selecting
+ * a weapon auto-displays its trait/range/damage/type/burden/feature as a read-only reminder — purely cosmetic,
+ * never used in any calculation. Falls back to a free-text field for homebrew weapons not in the SRD table,
+ * and for old data saved before this feature existed. */
+function WeaponField({ label, category, value, onChange }) {
+  const known = value ? weaponData(value) : null;
+  const list = WEAPONS.filter((w) => w.category === category).slice().sort((a, b) => a.tier - b.tier || a.name.localeCompare(b.name));
+  const [forceCustom, setForceCustom] = useState(!!value && !known);
+  const showCustomInput = forceCustom || (!!value && !known);
+  return (
+    <div>
+      <label className="text-xs text-muted">{label}</label>
+      <select className="w-full mt-1 bg-ink border border-line rounded px-3 py-2 sansUI"
+        value={showCustomInput ? "__custom__" : (value || "")}
+        onChange={(e) => {
+          if (e.target.value === "__custom__") setForceCustom(true);
+          else { setForceCustom(false); onChange(e.target.value); }
+        }}>
+        <option value="">— none —</option>
+        {list.map((w) => <option key={w.name} value={w.name}>T{w.tier} · {w.name}</option>)}
+        <option value="__custom__">Custom / homebrew…</option>
+      </select>
+      {showCustomInput && (
+        <input className="w-full mt-1 bg-ink border border-line rounded px-3 py-2" placeholder="Weapon name"
+          value={value || ""} onChange={(e) => onChange(e.target.value)} />
+      )}
+      {known && <p className="text-tiny2 text-faint mt-1">{weaponSummary(known)}</p>}
+    </div>
+  );
+}
+
 const DomainCardChip = ({ card, selected, onClick, disabled }) => (
   <button onClick={onClick} disabled={disabled}
     className={`w-full text-left p-2.5 rounded border sansUI ${selected ? "border-gold bg-surface2" : disabled ? "border-line opacity-40" : "border-line hoverable"}`}>
@@ -986,13 +1224,6 @@ function DaggerheartTracker() {
     catch { setError("Save failed — your last change may not have synced."); }
   };
 
-  /** Portraits are just a pasted link to an image hosted elsewhere (Discord, Imgur, etc.) — no file upload,
-   * no Firebase Storage, since that now requires a paid Blaze plan even for trivial free-tier usage. Setting
-   * one is just a normal field save. */
-  const setPortraitUrl = async (character, url) => {
-    await saveCharacter({ ...character, portraitUrl: url.trim() });
-  };
-
   const deleteCharacter = async (id) => {
     try { await fb.deleteDoc(fb.doc(fb.db, "characters", id)); } catch { /* ignore */ }
     if (activeId === id) { setActiveId(null); setView("roster"); }
@@ -1063,6 +1294,11 @@ function DaggerheartTracker() {
         .bg-gold { background-color: #C9A227; }
         .bg-teal { background-color: #2E9C9C; }
         .overlay { background-color: rgba(0,0,0,0.6); overscroll-behavior: contain; }
+
+        .crit-glow {
+          border-width: 2px;
+          border-image: linear-gradient(90deg, #C9A227, #8B5CF6) 1;
+        }
 
         .text-cream { color: #EDE6DA; }
         .text-muted { color: #a49bc4; }
@@ -1178,7 +1414,6 @@ function DaggerheartTracker() {
           tableRegistry={tableRegistry}
           onChange={saveCharacter}
           onDelete={() => deleteCharacter(activeId)}
-          onSetPortraitUrl={setPortraitUrl}
         />
       )}
     </div>
@@ -1355,7 +1590,6 @@ function Roster({ characters, role, viewerId, tables, tableRegistry, tableFilter
           return (
             <Card key={c.id} className="p-4 relative">
               <button onClick={() => onOpen(c.id)} className="text-left w-full flex gap-3">
-                {c.portraitUrl && <img src={c.portraitUrl} alt="" className="w-12 h-12 rounded-md object-cover border border-line shrink-0" />}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
                     {cls && cls.domains.map((d) => (
@@ -1752,15 +1986,10 @@ function StepEquipment({ data, set }) {
       <div>
         <SectionTitle>Weapons</SectionTitle>
         <div className="grid grid-cols-2 gap-3">
-          <div>
-            <label className="text-xs text-muted">Primary</label>
-            <input className="w-full mt-1 bg-ink border border-line rounded px-3 py-2" value={data.weaponPrimary || ""} onChange={(e) => set({ weaponPrimary: e.target.value })} />
-          </div>
-          <div>
-            <label className="text-xs text-muted">Secondary</label>
-            <input className="w-full mt-1 bg-ink border border-line rounded px-3 py-2" value={data.weaponSecondary || ""} onChange={(e) => set({ weaponSecondary: e.target.value })} />
-          </div>
+          <WeaponField label="Primary" category="Primary" value={data.weaponPrimary || ""} onChange={(v) => set({ weaponPrimary: v })} />
+          <WeaponField label="Secondary" category="Secondary" value={data.weaponSecondary || ""} onChange={(v) => set({ weaponSecondary: v })} />
         </div>
+        <p className="text-tiny2 text-faint mt-1">Any tier is selectable — the sheet is a reminder, not a virtual tabletop. Stats shown are for reference only.</p>
       </div>
       <div>
         <SectionTitle>Starting armor</SectionTitle>
@@ -1841,15 +2070,98 @@ function StepReview({ data }) {
 /*  CHARACTER SHEET                                                    */
 /* ------------------------------------------------------------------ */
 
-function Sheet({ character, tableRegistry = [], onChange, onDelete, onUploadPortrait, onRemovePortrait }) {
+/** Minimalist black-and-white print view of a character — everything on one flow, including every
+ * domain card the character owns (not just the 5-card loadout limit, since there's no separate vault
+ * field in the data model — this just lists the whole domainCards array). Uses the browser's native
+ * print dialog rather than generating a PDF file, since there's no backend to build one server-side. */
+function PrintSheet({ character: c, cls, arm, totalEvasion, minorThreshold, majorThreshold, armorSlotsMax, traitTotal, onClose }) {
+  return (
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-white text-black print-root">
+      <style>{`
+        @media print {
+          body * { visibility: hidden; }
+          .print-root, .print-root * { visibility: visible; }
+          .print-root { position: absolute; inset: 0; overflow: visible; }
+          .no-print { display: none !important; }
+        }
+        .print-root { font-family: Georgia, 'Times New Roman', serif; }
+        .print-root h1, .print-root h2 { font-family: Georgia, serif; }
+      `}</style>
+
+      <div className="no-print sticky top-0 bg-white border-b border-black flex justify-between items-center px-4 py-2 sansUI">
+        <span className="text-sm">Print preview — use your browser's Print (Control P or Command P), then close this.</span>
+        <div className="flex items-center gap-2">
+          <button onClick={() => window.print()} className="px-3 py-1.5 rounded bg-black text-white text-sm flex items-center gap-1">
+            <Printer size={14} /> Print
+          </button>
+          <button onClick={onClose} className="px-3 py-1.5 rounded border border-black text-sm">Close</button>
+        </div>
+      </div>
+
+      <div className="max-w-3xl mx-auto px-6 py-6 text-sm leading-snug">
+        <h1 className="text-2xl">{c.name || "Unnamed hero"}{c.pronouns ? ` (${c.pronouns})` : ""}</h1>
+        <p>{c.className} ({c.subclass}) · Level {c.level}, Tier {TIER_OF(c.level)} ·{" "}
+          {c.ancestry === "Mixed Ancestry" ? `${c.mixedTop}/${c.mixedBottom} Mixed Ancestry` : c.ancestry} · {c.community}
+        </p>
+        {c.playerName && <p>Played by {c.playerName}</p>}
+
+        <h2 className="text-lg mt-4 border-b border-black">Combat</h2>
+        <p>
+          Evasion: {totalEvasion} &nbsp; Armor: {arm.name} (Score {arm.score}, slots {armorSlotsMax}) &nbsp;
+          HP: ___ / {c.hp?.max ?? 0} &nbsp; Stress: ___ / {c.stress?.max ?? 0}
+        </p>
+        <p>Minor threshold: {minorThreshold} &nbsp; Major threshold: {majorThreshold} &nbsp; Proficiency: {c.proficiency}</p>
+        <p>Primary: {c.weaponPrimary || "—"}{weaponData(c.weaponPrimary) ? ` — ${weaponSummary(weaponData(c.weaponPrimary))}` : ""}</p>
+        <p>Secondary: {c.weaponSecondary || "—"}{weaponData(c.weaponSecondary) ? ` — ${weaponSummary(weaponData(c.weaponSecondary))}` : ""}</p>
+
+        <h2 className="text-lg mt-4 border-b border-black">Traits</h2>
+        <p>{TRAIT_NAMES.map((t) => `${t} ${fmtMod(traitTotal(t))}`).join("   ·   ")}</p>
+
+        <h2 className="text-lg mt-4 border-b border-black">Experiences</h2>
+        {(c.experiences || []).length > 0 ? (
+          <ul className="list-disc pl-5">
+            {c.experiences.map((e, i) => <li key={i}>{e.text} {fmtMod(e.bonus)}</li>)}
+          </ul>
+        ) : <p>None yet.</p>}
+
+        {(() => {
+          const all = c.domainCards || [];
+          const active = all.filter((card) => card.inLoadout !== false);
+          const vaulted = all.filter((card) => card.inLoadout === false);
+          const renderCard = (card, i) => (
+            <p key={i}><b>{card.name}</b> — {card.domain}, Lv {card.lvl}, {card.type}, Recall {card.recall}. {card.desc}</p>
+          );
+          return (
+            <>
+              <h2 className="text-lg mt-4 border-b border-black">Loadout ({active.length}/5)</h2>
+              {active.length > 0 ? <div className="space-y-1.5">{active.map(renderCard)}</div> : <p>None yet.</p>}
+              <h2 className="text-lg mt-4 border-b border-black">Vault ({vaulted.length})</h2>
+              {vaulted.length > 0 ? <div className="space-y-1.5">{vaulted.map(renderCard)}</div> : <p>Empty.</p>}
+            </>
+          );
+        })()}
+
+        <h2 className="text-lg mt-4 border-b border-black">Inventory</h2>
+        {(c.inventory || []).length > 0 ? (
+          <ul className="list-disc pl-5">{c.inventory.map((item, i) => <li key={i}>{item}</li>)}</ul>
+        ) : <p>None listed.</p>}
+
+        {c.background && (<><h2 className="text-lg mt-4 border-b border-black">Background</h2><p className="whitespace-pre-wrap">{c.background}</p></>)}
+        {c.connections && (<><h2 className="text-lg mt-4 border-b border-black">Connections</h2><p className="whitespace-pre-wrap">{c.connections}</p></>)}
+      </div>
+    </div>
+  );
+}
+
+function Sheet({ character, tableRegistry = [], onChange, onDelete }) {
   const [local, setLocal] = useState(character);
   const [rollResult, setRollResult] = useState(null);
   const [rollTrait, setRollTrait] = useState("Agility");
+  const [advCount, setAdvCount] = useState(0); // number of advantage dice queued for the next roll
+  const [disadvCount, setDisadvCount] = useState(0); // number of disadvantage dice queued for the next roll
   const [showLevelUp, setShowLevelUp] = useState(false);
   const [showCardPicker, setShowCardPicker] = useState(false);
-  const [uploading, setUploading] = useState(false);
-  const [uploadError, setUploadError] = useState("");
-  const fileInputRef = useRef(null);
+  const [showPrint, setShowPrint] = useState(false);
 
   useEffect(() => { setLocal(character); }, [character?.id]);
   useEffect(() => {
@@ -1870,14 +2182,29 @@ function Sheet({ character, tableRegistry = [], onChange, onDelete, onUploadPort
   const totalEvasion = local.evasion + (arm.evasionMod || 0);
   const traitTotal = (t) => (local.traits[t] ?? 0) + (touched.traitBonus[t] || 0);
   const armorSlotsMax = local.armor.slots.max + (touched.armorSlotBonus || 0);
+  const loadoutCount = (local.domainCards || []).filter((c) => c.inLoadout !== false).length;
+  const toggleCardLoadout = (i) => {
+    const cards = [...local.domainCards];
+    const active = cards[i].inLoadout !== false;
+    if (!active && loadoutCount >= 5) return; // loadout full, ignore
+    cards[i] = { ...cards[i], inLoadout: !active };
+    patch({ domainCards: cards });
+  };
 
   const roll = () => {
     const hopeDie = 1 + Math.floor(Math.random() * 12);
     const fearDie = 1 + Math.floor(Math.random() * 12);
     const mod = traitTotal(rollTrait);
-    const total = hopeDie + fearDie + mod;
+    // Advantage and disadvantage dice cancel out one-for-one before rolling, per the rules — so only the
+    // net excess on whichever side is larger actually gets rolled.
+    const netAdv = advCount - disadvCount;
+    const netCount = Math.abs(netAdv);
+    const netSign = netAdv > 0 ? 1 : netAdv < 0 ? -1 : 0;
+    const advDice = Array.from({ length: netCount }, () => 1 + Math.floor(Math.random() * 6));
+    const advTotal = advDice.reduce((a, b) => a + b, 0);
+    const total = hopeDie + fearDie + mod + netSign * advTotal;
     let outcome = hopeDie === fearDie ? "Critical Success!" : hopeDie > fearDie ? "Rolled with Hope" : "Rolled with Fear";
-    setRollResult({ hopeDie, fearDie, mod, total, outcome });
+    setRollResult({ hopeDie, fearDie, mod, advDice, advTotal, netSign, total, outcome });
   };
 
   const addExperience = () => patch({ experiences: [...local.experiences, { text: "New Experience", bonus: 2 }] });
@@ -1894,51 +2221,12 @@ function Sheet({ character, tableRegistry = [], onChange, onDelete, onUploadPort
 
   const setTrait = (t, v) => patch({ traits: { ...local.traits, [t]: v } });
 
-  const handlePortraitFile = async (e) => {
-    const file = e.target.files?.[0];
-    e.target.value = ""; // allow picking the same file again later
-    if (!file) return;
-    if (!file.type.startsWith("image/")) { setUploadError("That's not an image file."); return; }
-    setUploading(true);
-    setUploadError("");
-    const err = await onUploadPortrait(local, file);
-    setUploading(false);
-    if (err) setUploadError(err);
-  };
-
-  const handleRemovePortrait = async () => {
-    setUploading(true);
-    await onRemovePortrait(local);
-    setUploading(false);
-  };
-
   return (
     <div className="max-w-4xl mx-auto space-y-4 sansUI">
       {/* Header */}
       <Card className="p-5">
         <div className="flex flex-wrap justify-between items-start gap-3">
           <div className="flex items-start gap-4">
-            <div className="shrink-0">
-              {local.portraitUrl ? (
-                <img src={local.portraitUrl} alt="" className="w-20 h-20 rounded-md object-cover border border-line" />
-              ) : (
-                <div className="w-20 h-20 rounded-md border border-dashed border-line flex items-center justify-center text-tiny text-faint text-center px-1">No portrait</div>
-              )}
-              <input ref={fileInputRef} type="file" accept="image/*" onChange={handlePortraitFile} className="hidden" />
-              <div className="flex flex-col gap-1 mt-1 sansUI">
-                <button onClick={() => fileInputRef.current?.click()} disabled={uploading} className={`text-tiny hover-cream ${uploading ? "text-faint" : "text-gold"}`}>
-                  {uploading ? "Working…" : local.portraitUrl ? "Change" : "Upload photo"}
-                </button>
-                {local.portraitUrl && !uploading && (
-                  <ConfirmAction
-                    label="Remove" confirmLabel="Sure?" icon={null}
-                    onConfirm={handleRemovePortrait}
-                    className="text-tiny text-faint hover-danger" armedClassName="text-tiny text-danger"
-                  />
-                )}
-              </div>
-              {uploadError && <p className="text-tiny2 text-danger mt-1" style={{ maxWidth: 80 }}>{uploadError}</p>}
-            </div>
             <div>
             <input className="bg-transparent text-2xl border-b border-transparent border-line outline-none" style={{ fontFamily: "Georgia, serif" }}
               value={local.name} onChange={(e) => patch({ name: e.target.value })} />
@@ -1985,6 +2273,9 @@ function Sheet({ character, tableRegistry = [], onChange, onDelete, onUploadPort
             <button onClick={() => setShowLevelUp(true)} className="px-3 py-2 rounded bg-gold text-ink text-sm flex items-center gap-1">
               <ChevronRight size={14} /> Level up
             </button>
+            <button onClick={() => setShowPrint(true)} className="px-3 py-2 rounded border border-line text-sm flex items-center gap-1 hover-cream sansUI">
+              <Printer size={14} /> Print
+            </button>
             {(local.levelHistory || []).length > 0 && (
               <ConfirmAction
                 label={`Level down${local.levelHistory.length > 1 ? ` (${local.levelHistory.length})` : ""}`} confirmLabel="Confirm?" icon={<ChevronLeft size={14} />}
@@ -2016,16 +2307,36 @@ function Sheet({ character, tableRegistry = [], onChange, onDelete, onUploadPort
             </button>
           ))}
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-4">
           <button onClick={roll} className="px-3 py-2 rounded bg-teal text-ink flex items-center gap-1 text-sm">
             <Dices size={14} /> Roll Duality Dice ({rollTrait}{touched.traitBonus[rollTrait] ? ` ${fmtMod(traitTotal(rollTrait))} total` : ""})
           </button>
+          <div className="flex items-center gap-1 text-tiny text-muted">
+            <span>Advantage</span>
+            <button onClick={() => setAdvCount(Math.max(0, advCount - 1))} className="w-5 h-5 rounded border border-line hover-cream">-</button>
+            <span className="w-4 text-center text-gold">{advCount}</span>
+            <button onClick={() => setAdvCount(advCount + 1)} className="w-5 h-5 rounded border border-line hover-cream">+</button>
+          </div>
+          <div className="flex items-center gap-1 text-tiny text-muted">
+            <span>Disadvantage</span>
+            <button onClick={() => setDisadvCount(Math.max(0, disadvCount - 1))} className="w-5 h-5 rounded border border-line hover-cream">-</button>
+            <span className="w-4 text-center text-violet">{disadvCount}</span>
+            <button onClick={() => setDisadvCount(disadvCount + 1)} className="w-5 h-5 rounded border border-line hover-cream">+</button>
+          </div>
           {rollResult && (
-            <div className="text-sm">
-              <span className="text-gold">Hope {rollResult.hopeDie}</span> + <span className="text-violet">Fear {rollResult.fearDie}</span> + {fmtMod(rollResult.mod)} = <b>{rollResult.total}</b> — {rollResult.outcome}
+            <div className={`text-sm px-3 py-2 rounded border border-transparent ${rollResult.hopeDie === rollResult.fearDie ? "crit-glow" : ""}`}>
+              <span className="text-gold">Hope {rollResult.hopeDie}</span> + <span className="text-violet">Fear {rollResult.fearDie}</span> + {fmtMod(rollResult.mod)}
+              {rollResult.advDice.length > 0 && (
+                <> {rollResult.netSign > 0 ? "+" : "-"} <span className="text-teal">d6{rollResult.advDice.length > 1 ? "s" : ""} {rollResult.advDice.join(" + ")}</span></>
+              )}
+              {" "}= <b>{rollResult.total}</b>
+              {rollResult.hopeDie === rollResult.fearDie ? <b className="text-gold"> Crit!</b> : <> — {rollResult.outcome}</>}
             </div>
           )}
         </div>
+        {(advCount > 0 && disadvCount > 0) && (
+          <p className="text-tiny2 text-faint mt-1">Advantage and disadvantage cancel out one-for-one, so only the net difference will actually be rolled.</p>
+        )}
       </Card>
 
       {/* Subclass features */}
@@ -2102,27 +2413,22 @@ function Sheet({ character, tableRegistry = [], onChange, onDelete, onUploadPort
         </div>
         <p className="text-tiny2 text-faint mt-2">
           Below minor: mark 1 HP · minor–major: mark 2 HP · at/above major: mark 3 HP.
-          Base Evasion already includes Simiah's +1 (auto-applied at creation) — edit it directly for anything else not yet auto-tracked.
-          Total Evasion folds in your current armor's modifier ({arm.name}{arm.evasionMod ? `: ${fmtMod(arm.evasionMod)}` : ": none"}).
-          Threshold bonus covers manual sources like domain-card perks; Stalwart's tiers and Galapa's Shell (+{ancBonus.galapaShell ? local.proficiency : 0} from Proficiency) are already folded into the totals above automatically.
+          Evasion and thresholds are calculated dynamically: they already account for any bonus your ancestry, armor, or subclass may give you. Edit the base numbers directly for anything not yet auto-tracked.
         </p>
         <div className="mt-3">
           <label className="text-xs text-muted">Armor</label>
           <select className="w-full mt-1 bg-ink border border-line rounded px-3 py-2" value={local.armor.name}
             onChange={(e) => { const a = armorData(e.target.value); patch({ armor: { name: a.name, slots: { max: a.score, marked: 0 } } }); }}>
-            {ARMORS.map((a) => <option key={a.name} value={a.name}>T{a.tier} · {a.name} ({a.minor}/{a.major}, score {a.score})</option>)}
+            {ARMORS.filter((a) => a.tier <= TIER_OF(local.level) || a.name === local.armor.name)
+              .map((a) => <option key={a.name} value={a.name}>T{a.tier} · {a.name} ({a.minor}/{a.major}, score {a.score})</option>)}
           </select>
+          <p className="text-tiny2 text-faint mt-1">You can't equip armor above your own tier (Tier {TIER_OF(local.level)}) — the list is filtered accordingly.</p>
         </div>
         <div className="grid grid-cols-2 gap-3 mt-3">
-          <div>
-            <label className="text-xs text-muted">Primary weapon</label>
-            <input className="w-full mt-1 bg-ink border border-line rounded px-3 py-2" value={local.weaponPrimary} onChange={(e) => patch({ weaponPrimary: e.target.value })} />
-          </div>
-          <div>
-            <label className="text-xs text-muted">Secondary weapon</label>
-            <input className="w-full mt-1 bg-ink border border-line rounded px-3 py-2" value={local.weaponSecondary} onChange={(e) => patch({ weaponSecondary: e.target.value })} />
-          </div>
+          <WeaponField label="Primary weapon" category="Primary" value={local.weaponPrimary || ""} onChange={(v) => patch({ weaponPrimary: v })} />
+          <WeaponField label="Secondary weapon" category="Secondary" value={local.weaponSecondary || ""} onChange={(v) => patch({ weaponSecondary: v })} />
         </div>
+        <p className="text-tiny2 text-faint mt-1">Any tier is selectable — found a better weapon? Just pick it. Stats shown are for reference only.</p>
       </Card>
 
       {/* Gold */}
@@ -2159,22 +2465,36 @@ function Sheet({ character, tableRegistry = [], onChange, onDelete, onUploadPort
       {/* Domain cards */}
       <Card className="p-5">
         <div className="flex justify-between items-center mb-2">
-          <SectionTitle>Domain cards ({(local.domainCards || []).length}/5 in loadout)</SectionTitle>
+          <SectionTitle>Domain cards ({loadoutCount}/5 in loadout, {(local.domainCards || []).length} owned)</SectionTitle>
           <button onClick={() => setShowCardPicker(true)} className="text-xs text-gold flex items-center gap-1"><Plus size={12} /> add card</button>
         </div>
         <div className="space-y-1.5">
-          {(local.domainCards || []).map((c, i) => (
-            <div key={i} className="flex items-start gap-2">
-              <div className="flex-1"><DomainCardChip card={c} selected /></div>
-              <button onClick={() => patch({ domainCards: local.domainCards.filter((_, idx) => idx !== i) })} className="text-muted hover-danger mt-2"><X size={14} /></button>
-            </div>
-          ))}
+          {(local.domainCards || []).map((c, i) => {
+            const active = c.inLoadout !== false;
+            return (
+              <div key={i} className="flex items-start gap-2">
+                <label className="mt-3 flex items-center shrink-0" title={active ? "In loadout — click to vault" : "Vaulted — click to activate"}>
+                  <input type="checkbox" checked={active} disabled={!active && loadoutCount >= 5}
+                    onChange={() => toggleCardLoadout(i)} />
+                </label>
+                <div className="flex-1"><DomainCardChip card={c} selected={active} /></div>
+                <button onClick={() => patch({ domainCards: local.domainCards.filter((_, idx) => idx !== i) })} className="text-muted hover-danger mt-2"><X size={14} /></button>
+              </div>
+            );
+          })}
           {(!local.domainCards || local.domainCards.length === 0) && <p className="text-xs text-faint">No domain cards yet.</p>}
         </div>
-        <p className="text-xs text-faint mt-2">Only 5 cards can be active in your loadout at once — extras sit in your vault.</p>
+        <p className="text-xs text-faint mt-2">
+          Only 5 cards can be active in your loadout at once — check the box on the ones you're currently using; the rest sit in your vault.
+          {loadoutCount >= 5 && " Loadout full — uncheck one before activating another."}
+        </p>
         {showCardPicker && cls && (
           <CardPicker domains={cls.domains} maxLevel={local.level} owned={local.domainCards || []}
-            onPick={(card) => { patch({ domainCards: [...(local.domainCards || []), card] }); setShowCardPicker(false); }}
+            onPick={(card) => {
+              const inLoadout = loadoutCount < 5;
+              patch({ domainCards: [...(local.domainCards || []), { ...card, inLoadout }] });
+              setShowCardPicker(false);
+            }}
             onClose={() => setShowCardPicker(false)} />
         )}
       </Card>
@@ -2227,6 +2547,15 @@ function Sheet({ character, tableRegistry = [], onChange, onDelete, onUploadPort
         patch({ ...next, levelHistory: [...(levelHistory || []), snapshot] });
         setShowLevelUp(false);
       }} onClose={() => setShowLevelUp(false)} />}
+
+      {showPrint && (
+        <PrintSheet
+          character={local} cls={cls} arm={arm} totalEvasion={totalEvasion}
+          minorThreshold={minorThreshold} majorThreshold={majorThreshold}
+          armorSlotsMax={armorSlotsMax} traitTotal={traitTotal}
+          onClose={() => setShowPrint(false)}
+        />
+      )}
     </div>
   );
 }
